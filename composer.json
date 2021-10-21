@@ -5,7 +5,8 @@
     "license": "GPL-3.0-only",
     "authors": [
         {
-            "name": "garbuzivan"
+            "name": "garbuzivan",
+            "email": "i.garbuz@zebrains.team"
         }
     ],
     "require-dev": {
