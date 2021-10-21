@@ -110,6 +110,39 @@ class TokenRepository implements TokenRepositoryInterface
     }
 
     /**
+     * Продлить срок действия токена по id токена
+     * @param int $token_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationById(int $token_id, DateTime $expiration): bool
+    {
+        return (bool)Token::where('id', $token_id)->update(['expiration' => $expiration]);
+    }
+
+    /**
+     * Продлить срок действия токена по токену
+     * @param string $token
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByToken(string $token, DateTime $expiration): bool
+    {
+        return (bool)Token::where('token', $token)->update(['expiration' => $expiration]);
+    }
+
+    /**
+     * Продлить срок действия всех токенов по id пользователя
+     * @param int $user_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByUser(int $user_id, DateTime $expiration): bool
+    {
+        return (bool)Token::where('user_id', $user_id)->update(['expiration' => $expiration]);
+    }
+
+    /**
      * Редактировать токен
      * @param int $token_id - ID токена
      * @param string $title - заголовок токена

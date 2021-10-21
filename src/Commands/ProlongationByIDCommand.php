@@ -4,32 +4,33 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens\Commands;
 
+use Carbon\Carbon;
 use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeactivationByIDCommand extends Command
+class ProlongationByIDCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:deactivation-by-id {token_id}';
+    protected $name = 'tokens:prolongation-by-id {token_id} {day?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Деактивировать токен по ID токена (tokens:delete-by-id-by-id {token_id})';
+    protected $description = 'Продлить срок действия токена по id токена (tokens:prolongation-by-id {token_id} {day?})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:deactivation-by-id {token_id}';
+    protected $signature = 'tokens:prolongation-by-id {token_id} {day?}';
 
     /**
      * @var Composer
@@ -62,8 +63,10 @@ class DeactivationByIDCommand extends Command
         if (is_null($token_id) || $token_id < 1) {
             $this->line('ID токена не введен.');
         }
-        $this->TokenManager->deactivationById($token_id);
-        $this->line('Токен деактивирован.');
+        $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
+        $expiration = Carbon::now()->addDays($day);
+        $this->TokenManager->prolongationById($token_id, $expiration);
+        $this->line('Токен продлен до ' . $expiration->format('Y-m-d H:i:s') . '.');
         return 1;
     }
 }

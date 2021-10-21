@@ -8,28 +8,28 @@ use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeleteTokenCommand extends Command
+class DeactivationTokenCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:delete {token}';
+    protected $name = 'tokens:deactivation {token}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Удалить токен (tokens:delete {token})';
+    protected $description = 'Удалить токен (tokens:deactivation {token})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:delete {token}';
+    protected $signature = 'tokens:deactivation {token}';
 
     /**
      * @var Composer
@@ -63,7 +63,7 @@ class DeleteTokenCommand extends Command
             $this->line('Токен не введен.');
         }
         $this->TokenManager->deleteByToken($token);
-        $this->line('Токен удален.');
+        $this->line('Токен деактивирован.');
         return 1;
     }
 }

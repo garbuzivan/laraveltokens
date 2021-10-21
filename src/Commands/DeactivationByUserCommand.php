@@ -8,28 +8,28 @@ use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeleteTokenByUserCommand extends Command
+class DeactivationByUserCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:delete-by-user {user_id}';
+    protected $name = 'tokens:deactivation-by-user {user_id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Удалить токены пользователя по ID пользователя (tokens:delete-by-user {user_id})';
+    protected $description = 'Удалить токены пользователя по ID пользователя (tokens:deactivation-by-user {user_id})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:delete-by-user {user_id}';
+    protected $signature = 'tokens:deactivation-by-user {user_id}';
 
     /**
      * @var Composer
@@ -62,8 +62,8 @@ class DeleteTokenByUserCommand extends Command
         if (is_null($user_id) || $user_id < 1) {
             $this->line('ID пользователя не введен.');
         }
-        $this->TokenManager->deleteByUser($user_id);
-        $this->line('Токен удален.');
+        $this->TokenManager->deactivationByUser($user_id);
+        $this->line('Токены пользователя деактивированы.');
         return 1;
     }
 }

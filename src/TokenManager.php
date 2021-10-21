@@ -136,6 +136,69 @@ class TokenManager
     }
 
     /**
+     * Деактивировать токен (прекратить срок действия токена) по ID токена
+     * @param int $token_id - ID токена
+     * @return bool
+     */
+    public function deactivationById(int $token_id): bool
+    {
+        return $this->TokenRepository->deactivationById($token_id);
+    }
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по токену
+     * @param string $token
+     * @return bool
+     */
+    public function deactivationByToken(string $token): bool
+    {
+        return $this->TokenRepository->deactivationByToken($token);
+    }
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deactivationByUser(int $user_id): bool
+    {
+        return $this->TokenRepository->deactivationByUser($user_id);
+    }
+
+    /**
+     * Продлить срок действия токена по id токена
+     * @param int $token_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationById(int $token_id, DateTime $expiration): bool
+    {
+        return $this->TokenRepository->prolongationById($token_id, $expiration);
+    }
+
+    /**
+     * Продлить срок действия всех токенов по id пользователя
+     * @param int $user_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByUser(int $user_id, DateTime $expiration): bool
+    {
+        return $this->TokenRepository->prolongationByUser($user_id, $expiration);
+    }
+
+    /**
+     * Продлить срок действия токена по токену
+     * @param string $token
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByToken(string $token, DateTime $expiration): bool
+    {
+        return $this->TokenRepository->prolongationByToken($token, $expiration);
+    }
+
+    /**
      * Генерация случайного токена на основе даты и случайной строки
      * @return string
      */

@@ -72,6 +72,30 @@ interface TokenRepositoryInterface
     public function deactivationByUser(int $user_id): bool;
 
     /**
+     * Продлить срок действия токена по id токена
+     * @param int $token_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationById(int $token_id, DateTime $expiration): bool;
+
+    /**
+     * Продлить срок действия всех токенов по id пользователя
+     * @param int $user_id
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByUser(int $user_id, DateTime $expiration): bool;
+
+    /**
+     * Продлить срок действия токена по токену
+     * @param string $token
+     * @param DateTime $expiration
+     * @return bool
+     */
+    public function prolongationByToken(string $token, DateTime $expiration): bool;
+
+    /**
      * Редактировать токен
      * @param int $token_id - ID токена
      * @param string $title - заголовок токена

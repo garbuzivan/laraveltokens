@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens;
 
 use Garbuzivan\Laraveltokens\Commands\CreateTokenCommand;
+use Garbuzivan\Laraveltokens\Commands\DeactivationByIDCommand;
+use Garbuzivan\Laraveltokens\Commands\DeactivationByUserCommand;
+use Garbuzivan\Laraveltokens\Commands\DeactivationTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenAllCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenByUserCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenCommand;
+use Garbuzivan\Laraveltokens\Commands\ProlongationByIDCommand;
+use Garbuzivan\Laraveltokens\Commands\ProlongationByTokenCommand;
+use Garbuzivan\Laraveltokens\Commands\ProlongationByUserCommand;
 use Garbuzivan\Laraveltokens\Interfaces\TokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Repositories\TokenRepository;
 
@@ -32,10 +38,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateTokenCommand::class,
+                DeactivationTokenCommand::class,
+                DeactivationByIDCommand::class,
+                DeactivationByUserCommand::class,
                 DeleteTokenCommand::class,
                 DeleteTokenByIDCommand::class,
                 DeleteTokenByUserCommand::class,
                 DeleteTokenAllCommand::class,
+                ProlongationByIDCommand::class,
+                ProlongationByUserCommand::class,
+                ProlongationByTokenCommand::class,
             ]);
         }
     }
