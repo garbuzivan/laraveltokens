@@ -58,10 +58,9 @@ Package - manager for working with personal and global tokens in Laravel + API M
 
 ## Консольные команды
 
-Создание нового токена title - необязательный параметр, название токена в таблице user_id - необязательный параметр,
-возможность привязать токен к пользователю day - необязательный параметр, количество дней на сколько выпускается токен
+Список команд можно посмотреть в artisan. Доступно создание, удаление и продление токенов
 
-```php artisan token:create {title?} {day?} {user_id?}```
+```php artisan token```
 
 ## Пример применения Route::middleware
 
