@@ -83,11 +83,8 @@ class TokenManager
         ?DateTime $expiration = null,
         ?int      $user_id = null,
         string    $token = null
-    ): Token
-    {
-        if (is_null($expiration)) {
-            $expiration = is_null($expiration) ? Carbon::now()->addYears() : $expiration;
-        }
+    ): Token {
+        $expiration = !$expiration instanceof DateTime ? Carbon::now()->addYears() : $expiration;
         if (is_null($token) || mb_strlen($token) < 32) {
             $token = is_null($token) ? $this->generateToken() : $token;
         }
@@ -96,6 +93,7 @@ class TokenManager
         $tokenDB->token = $token;
         return $tokenDB;
     }
+
     /**
      * Удалить токен по ID токена
      * @param int $token_id - ID токена
