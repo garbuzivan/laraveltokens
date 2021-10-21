@@ -11,6 +11,7 @@ use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\TokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Models\Token;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class TokenRepository implements TokenRepositoryInterface
 {
@@ -33,23 +34,77 @@ class TokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * Удалить токен
+     * Удалить токен по ID токена
      * @param int $token_id - ID токена
      * @return bool
      */
-    public function delete(int $token_id): bool
+    public function deleteById(int $token_id): bool
     {
         return Token::where('id', $token_id)->delete();
     }
 
     /**
-     * Деактивировать токен (прекратить срок действия токена)
+     * Удалить токен
+     * @param string $token
+     * @return bool
+     */
+    public function deleteByToken(string $token): bool
+    {
+        return Token::where('token', $token)->delete();
+    }
+
+    /**
+     * Удалить все токены пользователя по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deleteByUser(int $user_id): bool
+    {
+        return Token::where('user_id', $user_id)->delete();
+    }
+
+    /**
+     * Очистить таблицу токенов
+     * @return bool
+     */
+    public function deleteAll(): bool
+    {
+        DB::table('sensors')->truncate();
+        return true;
+    }
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по ID токена
      * @param int $token_id - ID токена
      * @return bool
      */
-    public function deactivation(int $token_id): bool
+    public function deactivationById(int $token_id): bool
     {
         return (bool)Token::where('id', $token_id)->update([
+            'expiration' => Carbon::now()->subMinutes()
+        ]);
+    }
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по токену
+     * @param string $token
+     * @return bool
+     */
+    public function deactivationByToken(string $token): bool
+    {
+        return (bool)Token::where('token', $token)->update([
+            'expiration' => Carbon::now()->subMinutes()
+        ]);
+    }
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deactivationByUser(int $user_id): bool
+    {
+        return (bool)Token::where('user_id', $user_id)->update([
             'expiration' => Carbon::now()->subMinutes()
         ]);
     }

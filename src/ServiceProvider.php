@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens;
 
 use Garbuzivan\Laraveltokens\Commands\CreateTokenCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteTokenAllCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteTokenByIDCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteTokenByUserCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteTokenCommand;
 use Garbuzivan\Laraveltokens\Interfaces\TokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Repositories\TokenRepository;
 
@@ -28,6 +32,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateTokenCommand::class,
+                DeleteTokenCommand::class,
+                DeleteTokenByIDCommand::class,
+                DeleteTokenByUserCommand::class,
+                DeleteTokenAllCommand::class,
             ]);
         }
     }

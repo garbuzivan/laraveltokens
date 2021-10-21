@@ -11,7 +11,7 @@ build:
             command: phpcs-run
             use_website_config: false
           -
-            command: './vendor/bin/phpunit --coverage-clover=./coverage.xml'
+            command: 'XDEBUG_MODE=coverage  ./vendor/bin/phpunit --coverage-clover=./coverage.xml'
             coverage:
               file: ./coverage.xml
               format: clover

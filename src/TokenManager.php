@@ -96,6 +96,44 @@ class TokenManager
         $tokenDB->token = $token;
         return $tokenDB;
     }
+    /**
+     * Удалить токен по ID токена
+     * @param int $token_id - ID токена
+     * @return bool
+     */
+    public function deleteById(int $token_id): bool
+    {
+        return $this->TokenRepository->deleteById($token_id);
+    }
+
+    /**
+     * Удалить токен
+     * @param string $token
+     * @return bool
+     */
+    public function deleteByToken(string $token): bool
+    {
+        return $this->TokenRepository->deleteByToken($token);
+    }
+
+    /**
+     * Удалить все токены пользователя по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deleteByUser(int $user_id): bool
+    {
+        return $this->TokenRepository->deleteByUser($user_id);
+    }
+
+    /**
+     * Очистить таблицу токенов
+     * @return bool
+     */
+    public function deleteAll(): bool
+    {
+        return $this->TokenRepository->deleteAll();
+    }
 
     /**
      * Генерация случайного токена на основе даты и случайной строки

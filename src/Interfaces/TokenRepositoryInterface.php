@@ -22,19 +22,54 @@ interface TokenRepositoryInterface
      */
     public function create(string $title, DateTime $expiration, ?int $user_id = null, string $token = null): Token;
 
-    /**
-     * Удалить токен
-     * @param int $token_id - ID токена
-     * @return bool
-     */
-    public function delete(int $token_id): bool;
 
     /**
-     * Деактивировать токен (прекратить срок действия токена)
+     * Удалить токен по ID токена
      * @param int $token_id - ID токена
      * @return bool
      */
-    public function deactivation(int $token_id): bool;
+    public function deleteById(int $token_id): bool;
+
+    /**
+     * Удалить токен
+     * @param string $token
+     * @return bool
+     */
+    public function deleteByToken(string $token): bool;
+
+    /**
+     * Удалить все токены пользователя по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deleteByUser(int $user_id): bool;
+
+    /**
+     * Очистить таблицу токенов
+     * @return bool
+     */
+    public function deleteAll(): bool;
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по ID токена
+     * @param int $token_id - ID токена
+     * @return bool
+     */
+    public function deactivationById(int $token_id): bool;
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по токену
+     * @param string $token
+     * @return bool
+     */
+    public function deactivationByToken(string $token): bool;
+
+    /**
+     * Деактивировать токен (прекратить срок действия токена) по id пользователя
+     * @param int $user_id
+     * @return bool
+     */
+    public function deactivationByUser(int $user_id): bool;
 
     /**
      * Редактировать токен
