@@ -17,6 +17,7 @@
         "phpunit/phpunit": "^9"
     },
     "require": {
+        "php": "^7.4"
     },
     "minimum-stability": "stable",
     "autoload": {
