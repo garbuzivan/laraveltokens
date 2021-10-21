@@ -62,6 +62,7 @@ class ProlongationByTokenCommand extends Command
         $token = $arguments['token'] ?? null;
         if (is_null($token)) {
             $this->line('Токен не введен.');
+            return 1;
         }
         $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
         $expiration = Carbon::now()->addDays($day);

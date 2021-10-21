@@ -61,6 +61,7 @@ class DeleteTokenCommand extends Command
         $token = $arguments['token'] ?? null;
         if (is_null($token)) {
             $this->line('Токен не введен.');
+            return 1;
         }
         $this->TokenManager->deleteByToken($token);
         $this->line('Токен удален.');

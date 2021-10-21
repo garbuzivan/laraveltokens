@@ -61,6 +61,7 @@ class DeleteTokenByIDCommand extends Command
         $token_id = $arguments['token_id'] ? intval($arguments['token_id']) : null;
         if (is_null($token_id) || $token_id < 1) {
             $this->line('ID токена не введен.');
+            return 1;
         }
         $this->TokenManager->deleteById($token_id);
         $this->line('Токен удален.');

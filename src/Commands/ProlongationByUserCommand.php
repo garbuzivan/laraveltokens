@@ -63,6 +63,7 @@ class ProlongationByUserCommand extends Command
         $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
         if (is_null($user_id) || $user_id < 1) {
             $this->line('ID пользователя не введен.');
+            return 1;
         }
         $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
         $expiration = Carbon::now()->addDays($day);

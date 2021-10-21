@@ -61,6 +61,7 @@ class DeactivationByUserCommand extends Command
         $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
         if (is_null($user_id) || $user_id < 1) {
             $this->line('ID пользователя не введен.');
+            return 1;
         }
         $this->TokenManager->deactivationByUser($user_id);
         $this->line('Токены пользователя деактивированы.');
