@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens\Models;
 
+/** @scrutinizer ignore-type */
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

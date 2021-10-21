@@ -40,7 +40,7 @@ class TokenRepository implements TokenRepositoryInterface
      */
     public function deleteById(int $token_id): bool
     {
-        return Token::where('id', $token_id)->delete();
+        return (bool)Token::where('id', $token_id)->delete();
     }
 
     /**
@@ -50,7 +50,7 @@ class TokenRepository implements TokenRepositoryInterface
      */
     public function deleteByToken(string $token): bool
     {
-        return Token::where('token', $token)->delete();
+        return (bool)Token::where('token', $token)->delete();
     }
 
     /**
@@ -60,7 +60,7 @@ class TokenRepository implements TokenRepositoryInterface
      */
     public function deleteByUser(int $user_id): bool
     {
-        return Token::where('user_id', $user_id)->delete();
+        return (bool)Token::where('user_id', $user_id)->delete();
     }
 
     /**
@@ -157,8 +157,7 @@ class TokenRepository implements TokenRepositoryInterface
         DateTime $expiration,
         ?int     $user_id = null,
         string   $token = null
-    ): bool
-    {
+    ): bool {
         return (bool)Token::where('id', $token_id)->update([
             'token' => $token,
             'user_id' => $user_id,

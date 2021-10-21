@@ -14,6 +14,6 @@ trait UserTrait
      */
     public function tokens()
     {
-        return $this->hasMany(Token::class);
+        return $this->/** @scrutinizer ignore-call */ hasMany(Token::class);
     }
 }
