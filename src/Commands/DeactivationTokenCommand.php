@@ -22,7 +22,7 @@ class DeactivationTokenCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Удалить токен (tokens:deactivation {token})';
+    protected $description = 'Деактивировать токен (tokens:deactivation {token})';
 
     /**
      * The console command signature.

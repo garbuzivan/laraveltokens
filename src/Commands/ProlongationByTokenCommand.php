@@ -23,7 +23,7 @@ class ProlongationByTokenCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Продлить срок действия токена по id токена (tokens:prolongation {token} {day?})';
+    protected $description = 'Продлить срок действия токена (tokens:prolongation {token} {day?})';
 
     /**
      * The console command signature.

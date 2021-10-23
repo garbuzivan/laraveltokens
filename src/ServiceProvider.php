@@ -7,15 +7,21 @@ namespace Garbuzivan\Laraveltokens;
 use Garbuzivan\Laraveltokens\Commands\CreateGlobalTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\CreateTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeactivationByIDCommand;
+use Garbuzivan\Laraveltokens\Commands\DeactivationGlobalByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\DeactivationByUserCommand;
+use Garbuzivan\Laraveltokens\Commands\DeactivationGlobalTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeactivationTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenAllCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteGlobalTokenByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenByUserCommand;
+use Garbuzivan\Laraveltokens\Commands\DeleteGlobalTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeleteTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByTokenCommand;
+use Garbuzivan\Laraveltokens\Commands\ProlongationGlobalTokenByTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByUserCommand;
+use Garbuzivan\Laraveltokens\Commands\ProlongationGlobalTokenByIDCommand;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Interfaces\GlobalTokenRepositoryInterface;
 
@@ -38,18 +44,24 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                CreateGlobalTokenCommand::class,
                 CreateTokenCommand::class,
-                DeactivationTokenCommand::class,
                 DeactivationByIDCommand::class,
                 DeactivationByUserCommand::class,
-                DeleteTokenCommand::class,
+                DeactivationGlobalByIDCommand::class,
+                DeactivationGlobalTokenCommand::class,
+                DeactivationTokenCommand::class,
+                DeleteGlobalTokenByIDCommand::class,
+                DeleteGlobalTokenCommand::class,
+                DeleteTokenAllCommand::class,
                 DeleteTokenByIDCommand::class,
                 DeleteTokenByUserCommand::class,
-                DeleteTokenAllCommand::class,
+                DeleteTokenCommand::class,
                 ProlongationByIDCommand::class,
-                ProlongationByUserCommand::class,
                 ProlongationByTokenCommand::class,
-                CreateGlobalTokenCommand::class,
+                ProlongationByUserCommand::class,
+                ProlongationGlobalTokenByIDCommand::class,
+                ProlongationGlobalTokenByTokenCommand::class,
             ]);
         }
     }

@@ -24,7 +24,7 @@ class CreateTokenCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Создать новый токен ' .
+    protected $description = 'Создать новый персональный токен ' .
     '(tokens:create {title} {количество дней действия или 0 == бессрочно} {user_id} {type?})';
 
     /**

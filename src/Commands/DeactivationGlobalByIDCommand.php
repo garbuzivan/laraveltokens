@@ -8,29 +8,29 @@ use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeactivationByUserCommand extends Command
+class DeactivationGlobalByIDCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $name = 'tokens:global-deactivation-by-id {token_id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Деактивировать токены пользователя по ID пользователя ' .
-    '(tokens:deactivation-by-user {user_id} {user_type?})';
+    protected $description = 'Деактивировать глобальный токен по ID токена ' .
+    ' (tokens:global-deactivation-by-id {token_id})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $signature = 'tokens:global-deactivation-by-id {token_id}';
 
     /**
      * @var Composer
@@ -59,14 +59,13 @@ class DeactivationByUserCommand extends Command
     public function handle()
     {
         $arguments = $this->arguments();
-        $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
-        $user_type = $arguments['user_type'] ?? $this->TokenManager->getDefaultMorph();
-        if (is_null($user_id) || $user_id < 1) {
-            $this->line('ID пользователя не введен.');
+        $token_id = $arguments['token_id'] ? intval($arguments['token_id']) : null;
+        if (is_null($token_id) || $token_id < 1) {
+            $this->line('ID токена не введен.');
             return 1;
         }
-        $this->TokenManager->deactivationAccessTokenByUser($user_id, $user_type);
-        $this->line('Токены пользователя деактивированы.');
+        $this->TokenManager->deactivationGlobalTokenById($token_id);
+        $this->line('Токен деактивирован.');
         return 1;
     }
 }

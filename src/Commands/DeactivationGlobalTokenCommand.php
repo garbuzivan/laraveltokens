@@ -8,29 +8,28 @@ use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeactivationByUserCommand extends Command
+class DeactivationGlobalTokenCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $name = 'tokens:global-deactivation {token}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Деактивировать токены пользователя по ID пользователя ' .
-    '(tokens:deactivation-by-user {user_id} {user_type?})';
+    protected $description = 'Деактивировать глобальный токен (tokens:global-deactivation {token})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $signature = 'tokens:global-deactivation {token}';
 
     /**
      * @var Composer
@@ -59,14 +58,13 @@ class DeactivationByUserCommand extends Command
     public function handle()
     {
         $arguments = $this->arguments();
-        $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
-        $user_type = $arguments['user_type'] ?? $this->TokenManager->getDefaultMorph();
-        if (is_null($user_id) || $user_id < 1) {
-            $this->line('ID пользователя не введен.');
+        $token = $arguments['token'] ?? null;
+        if (is_null($token)) {
+            $this->line('Токен не введен.');
             return 1;
         }
-        $this->TokenManager->deactivationAccessTokenByUser($user_id, $user_type);
-        $this->line('Токены пользователя деактивированы.');
+        $this->TokenManager->deactivationGlobalToken($token);
+        $this->line('Токен деактивирован.');
         return 1;
     }
 }

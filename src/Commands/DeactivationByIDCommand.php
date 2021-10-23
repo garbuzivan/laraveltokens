@@ -22,7 +22,7 @@ class DeactivationByIDCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Деактивировать токен по ID токена (tokens:delete-by-id {token_id})';
+    protected $description = 'Деактивировать токен по ID токена (tokens:deactivation-by-id {token_id})';
 
     /**
      * The console command signature.

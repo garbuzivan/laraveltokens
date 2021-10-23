@@ -4,33 +4,34 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens\Commands;
 
+use Carbon\Carbon;
 use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class DeactivationByUserCommand extends Command
+class ProlongationGlobalTokenByTokenCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $name = 'tokens:global-prolongation {token} {day?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Деактивировать токены пользователя по ID пользователя ' .
-    '(tokens:deactivation-by-user {user_id} {user_type?})';
+    protected $description = 'Продлить срок действия глобального токена ' .
+    '(tokens:global-prolongation {token} {day?})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:deactivation-by-user {user_id} {user_type?}';
+    protected $signature = 'tokens:global-prolongation {token} {day?}';
 
     /**
      * @var Composer
@@ -59,14 +60,15 @@ class DeactivationByUserCommand extends Command
     public function handle()
     {
         $arguments = $this->arguments();
-        $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
-        $user_type = $arguments['user_type'] ?? $this->TokenManager->getDefaultMorph();
-        if (is_null($user_id) || $user_id < 1) {
-            $this->line('ID пользователя не введен.');
+        $token = $arguments['token'] ?? null;
+        if (is_null($token)) {
+            $this->line('Токен не введен.');
             return 1;
         }
-        $this->TokenManager->deactivationAccessTokenByUser($user_id, $user_type);
-        $this->line('Токены пользователя деактивированы.');
+        $expiration = intval($arguments['day']) > 0 ? Carbon::now()->addDays(intval($arguments['day'])) : null;
+        $this->TokenManager->prolongationGlobalToken($token, $expiration);
+        $date = is_null($expiration) ? 'навсегда' : 'до ' . $expiration->format('Y-m-d H:i:s');
+        $this->line('Токен продлен ' . $date . '.');
         return 1;
     }
 }

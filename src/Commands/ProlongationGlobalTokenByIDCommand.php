@@ -9,29 +9,29 @@ use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 
-class CreateGlobalTokenCommand extends Command
+class ProlongationGlobalTokenByIDCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'tokens:global-create {title} {day}';
+    protected $name = 'tokens:global-prolongation-by-id {token_id} {day?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Создать новый глобальный токен ' .
-    '(tokens:create {title} {количество дней действия или 0 - бессрочно})';
+    protected $description = 'Продлить срок действия глобального токена по id токена ' .
+    '(tokens:global-prolongation-by-id {token_id} {day?})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:global-create {title} {day}';
+    protected $signature = 'tokens:global-prolongation-by-id {token_id} {day?}';
 
     /**
      * @var Composer
@@ -60,12 +60,15 @@ class CreateGlobalTokenCommand extends Command
     public function handle()
     {
         $arguments = $this->arguments();
-        $title = $arguments['title'] ?? date('Y-m-d H:i:s');
-        $day = intval($arguments['day']);
-        $expiration = $day > 0 ? Carbon::now()->addDays($day) : null;
-        $token = $this->TokenManager->createGlobalToken($title, $expiration);
+        $token_id = $arguments['token_id'] ? intval($arguments['token_id']) : null;
+        if (is_null($token_id) || $token_id < 1) {
+            $this->line('ID токена не введен.');
+            return 1;
+        }
+        $expiration = intval($arguments['day']) > 0 ? Carbon::now()->addDays(intval($arguments['day'])) : null;
+        $this->TokenManager->prolongationGlobalTokenById($token_id, $expiration);
         $date = is_null($expiration) ? 'навсегда' : 'до ' . $expiration->format('Y-m-d H:i:s');
-        $this->line('Глобальный токен ' . $token->token . ' создан ' . $date . '.');
+        $this->line('Токен продлен ' . $date . '.');
         return 1;
     }
 }
