@@ -19,7 +19,7 @@ trait ManagerGlobalTokenTrait
     /**
      * @var GlobalTokenRepositoryInterface
      */
-    protected GlobalTokenRepositoryInterface $GlobalTokenRepository;
+    protected GlobalTokenRepositoryInterface $globalTokenRepository;
 
     /**
      * Создать токен
@@ -37,7 +37,7 @@ trait ManagerGlobalTokenTrait
     ): GlobalToken {
         $token = is_null($token) || mb_strlen($token) < 32 ?
             $this->/** @scrutinizer ignore-call */ generateGlobalToken() : $token;
-        $tokenDB = $this->GlobalTokenRepository->createGlobalToken(
+        $tokenDB = $this->globalTokenRepository->createGlobalToken(
             $title,
             $expiration,
             $this->/** @scrutinizer ignore-call */ getGlobalTokenDb($token)
@@ -55,7 +55,7 @@ trait ManagerGlobalTokenTrait
      */
     public function deleteGlobalTokenById(int $token_id): bool
     {
-        return $this->GlobalTokenRepository->deleteGlobalTokenById($token_id);
+        return $this->globalTokenRepository->deleteGlobalTokenById($token_id);
     }
 
     /**
@@ -67,7 +67,7 @@ trait ManagerGlobalTokenTrait
      */
     public function deleteGlobalToken(string $token): bool
     {
-        return $this->GlobalTokenRepository->deleteGlobalToken($token);
+        return $this->globalTokenRepository->deleteGlobalToken($token);
     }
 
     /**
@@ -79,7 +79,7 @@ trait ManagerGlobalTokenTrait
      */
     public function deactivationGlobalTokenById(int $token_id): bool
     {
-        return $this->GlobalTokenRepository->deactivationGlobalTokenById($token_id);
+        return $this->globalTokenRepository->deactivationGlobalTokenById($token_id);
     }
 
     /**
@@ -91,7 +91,7 @@ trait ManagerGlobalTokenTrait
      */
     public function deactivationGlobalToken(string $token): bool
     {
-        return $this->GlobalTokenRepository->deactivationGlobalToken($token);
+        return $this->globalTokenRepository->deactivationGlobalToken($token);
     }
 
     /**
@@ -104,7 +104,7 @@ trait ManagerGlobalTokenTrait
      */
     public function prolongationGlobalTokenById(int $token_id, ?DateTime $expiration = null): bool
     {
-        return $this->GlobalTokenRepository->prolongationGlobalTokenById($token_id, $expiration);
+        return $this->globalTokenRepository->prolongationGlobalTokenById($token_id, $expiration);
     }
 
     /**
@@ -117,6 +117,6 @@ trait ManagerGlobalTokenTrait
      */
     public function prolongationGlobalToken(string $token, ?DateTime $expiration = null): bool
     {
-        return $this->GlobalTokenRepository->prolongationGlobalToken($token, $expiration);
+        return $this->globalTokenRepository->prolongationGlobalToken($token, $expiration);
     }
 }

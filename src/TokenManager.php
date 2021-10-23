@@ -53,20 +53,27 @@ class TokenManager
      *
      * @param string $token
      *
-     * @return AccessToken
+     * @return mixed
      * @throws TokenIsNotNalidException
      */
     public function auth(string $token): AccessToken
     {
         $token = $this->config->isEncryption() ? $this->getHash($token) : $token;
         $tokenDb = $this->accessTokenRepository->getAccessToken($token);
-        if (is_null($tokenDb) || !$tokenDb->isValid()) {
-            throw new TokenIsNotNalidException;
+        if (!is_null($tokenDb) || $tokenDb->isValid()) {
+            if ($this->config->isLastUse()) {
+                $this->accessTokenRepository->setLastUseAccessToken($token);
+            }
+            return $tokenDb;
         }
-        if ($this->config->isLastUse()) {
-            $this->accessTokenRepository->setLastUseAccessToken($token);
+        $tokenDb = $this->globalTokenRepository->getGlobalToken($token);
+        if (!is_null($tokenDb) || $tokenDb->isValid()) {
+            if ($this->config->isLastUse()) {
+                $this->globalTokenRepository->setLastUseGlobalToken($token);
+            }
+            return $tokenDb;
         }
-        return $tokenDb;
+        throw new TokenIsNotNalidException;
     }
 
     /**
@@ -77,7 +84,7 @@ class TokenManager
     public function deleteAllTokens(): void
     {
         $this->accessTokenRepository->deleteAllAccessToken();
-        $this->GlobalTokenRepository->deleteAllGlobalToken();
+        $this->globalTokenRepository->deleteAllGlobalToken();
     }
 
     /**
