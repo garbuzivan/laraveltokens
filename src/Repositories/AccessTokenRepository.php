@@ -9,7 +9,6 @@ use DateTime;
 use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -219,13 +218,13 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * Фиксация последней активности токена
      *
-     * @param string $token
+     * @param int $token_id
      *
      * @return bool
      */
-    public function setLastUseAccessToken(string $token): bool
+    public function setLastUseAccessToken(int $token_id): bool
     {
-        return (bool)AccessToken::where('token', $token)->update([
+        return (bool)AccessToken::where('id', $token_id)->update([
             'last_use' => Carbon::now()->subMinutes(),
         ]);
     }

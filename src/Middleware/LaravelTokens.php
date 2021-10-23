@@ -6,7 +6,7 @@ namespace Garbuzivan\Laraveltokens\Middleware;
 
 use Closure;
 use Garbuzivan\Laraveltokens\Exceptions\EmptyTokenException;
-use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotNalidException;
+use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotValidException;
 use Garbuzivan\Laraveltokens\TokenManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
@@ -52,7 +52,7 @@ class LaravelTokens
         }
         try {
             $token = $this->TokenManager->auth($token);
-        } catch (TokenIsNotNalidException $e) {
+        } catch (TokenIsNotValidException $e) {
             abort(403);
         }
         if ($token->user instanceof Authenticatable) {

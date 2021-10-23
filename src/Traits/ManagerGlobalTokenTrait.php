@@ -36,11 +36,11 @@ trait ManagerGlobalTokenTrait
         ?string   $token = null
     ): GlobalToken {
         $token = is_null($token) || mb_strlen($token) < 32 ?
-            $this->/** @scrutinizer ignore-call */ generateGlobalToken() : $token;
+            $this->/** @scrutinizer ignore-call */ generateToken() : $token;
         $tokenDB = $this->globalTokenRepository->createGlobalToken(
             $title,
             $expiration,
-            $this->/** @scrutinizer ignore-call */ getGlobalTokenDb($token)
+            $this->/** @scrutinizer ignore-call */ getTokenDb($token)
         );
         $tokenDB->token = $token;
         return $tokenDB;

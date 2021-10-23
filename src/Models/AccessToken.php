@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens\Models;
 
 use Carbon\Carbon;
+use Garbuzivan\Laraveltokens\Interfaces\ModelToken;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class AccessToken extends Model
+class AccessToken extends Model implements ModelToken
 {
     use HasFactory;
 

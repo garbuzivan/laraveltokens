@@ -108,9 +108,9 @@ interface GlobalTokenRepositoryInterface
     /**
      * Фиксация последней активности токена
      *
-     * @param string $token
+     * @param int $token_id
      *
      * @return bool
      */
-    public function setLastUseGlobalToken(string $token): bool;
+    public function setLastUseGlobalToken(int $token_id): bool;
 }

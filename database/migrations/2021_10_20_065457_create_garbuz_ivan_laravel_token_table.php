@@ -42,6 +42,7 @@ class CreateGarbuzIvanLaravelTokenTable extends Migration
             $table->string('token')->unique();
             $table->string('title')->nullable();
             $table->datetime('expiration')->nullable();
+            $table->datetime('last_use')->nullable();
             $table->index('token');
             $table->timestamps();
         });

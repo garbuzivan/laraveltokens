@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens;
 
-use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotNalidException;
+use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotValidException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Interfaces\GlobalTokenRepositoryInterface;
+use Garbuzivan\Laraveltokens\Interfaces\ModelToken;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
 use Garbuzivan\Laraveltokens\Traits\ManagerAccessTokenTrait;
 use Garbuzivan\Laraveltokens\Traits\ManagerGlobalTokenTrait;
@@ -20,6 +21,11 @@ class TokenManager
      * @var Config $config
      */
     protected Config $config;
+
+    /**
+     * @var Token $token
+     */
+    protected Token $token;
 
     /**
      * @var AccessTokenRepositoryInterface
@@ -46,6 +52,7 @@ class TokenManager
         $this->config = $config;
         $this->accessTokenRepository = $TokenRepository;
         $this->globalTokenRepository = $globalTokenRepository;
+        $this->token = app(Token::class);
     }
 
     /**
@@ -53,27 +60,35 @@ class TokenManager
      *
      * @param string $token
      *
-     * @return mixed
-     * @throws TokenIsNotNalidException
+     * @return Token
+     * @throws TokenIsNotValidException
      */
-    public function auth(string $token): AccessToken
+    public function auth(string $token): Token
     {
         $token = $this->config->isEncryption() ? $this->getHash($token) : $token;
         $tokenDb = $this->accessTokenRepository->getAccessToken($token);
-        if (!is_null($tokenDb) || $tokenDb->isValid()) {
-            if ($this->config->isLastUse()) {
-                $this->accessTokenRepository->setLastUseAccessToken($token);
-            }
-            return $tokenDb;
+        $this->token->load($tokenDb);
+        if (!$this->token->isValid()) {
+            $tokenDb = $this->globalTokenRepository->getGlobalToken($token);
+            $this->token->load($tokenDb);
         }
-        $tokenDb = $this->globalTokenRepository->getGlobalToken($token);
-        if (!is_null($tokenDb) || $tokenDb->isValid()) {
-            if ($this->config->isLastUse()) {
-                $this->globalTokenRepository->setLastUseGlobalToken($token);
-            }
-            return $tokenDb;
+        if (!$this->token->isValid()) {
+            throw new TokenIsNotValidException;
         }
-        throw new TokenIsNotNalidException;
+        $this->setLastUse($this->token->id);
+        return $this->token;
+    }
+
+    /**
+     * @param int $token_id
+     */
+    public function setLastUse(int $token_id): void
+    {
+        if (!$this->config->isLastUse()) {
+            return;
+        }
+        $this->accessTokenRepository->setLastUseAccessToken($token_id);
+        $this->globalTokenRepository->setLastUseGlobalToken($token_id);
     }
 
     /**
@@ -109,7 +124,7 @@ class TokenManager
      *
      * @return string
      */
-    public function generateAccessToken(): string
+    public function generateToken(): string
     {
         return sha1(time() . Str::random());
     }
@@ -121,7 +136,7 @@ class TokenManager
      *
      * @return string
      */
-    public function getAccessTokenDb(string $token): string
+    public function getTokenDb(string $token): string
     {
         return $this->config->isEncryption() ? $this->getHash($token) : $token;
     }
@@ -148,7 +163,7 @@ class TokenManager
      */
     public function isVerify(string $token, string $hash): bool
     {
-        return strcmp($this->getAccessTokenDb($token), $hash) !== 0;
+        return strcmp($this->getTokenDb($token), $hash) !== 0;
     }
 
     /**
@@ -159,5 +174,13 @@ class TokenManager
     public function getDefaultMorph(): string
     {
         return 'App\Models\User';
+    }
+
+    /**
+     * @return Token
+     */
+    public function getToken(): Token
+    {
+        return $this->token;
     }
 }

@@ -149,13 +149,13 @@ class GlobalTokenRepository implements GlobalTokenRepositoryInterface
     /**
      * Фиксация последней активности токена
      *
-     * @param string $token
+     * @param int $token_id
      *
      * @return bool
      */
-    public function setLastUseGlobalToken(string $token): bool
+    public function setLastUseGlobalToken(int $token_id): bool
     {
-        return (bool)GlobalToken::where('token', $token)->update([
+        return (bool)GlobalToken::where('id', $token_id)->update([
             'last_use' => Carbon::now()->subMinutes(),
         ]);
     }

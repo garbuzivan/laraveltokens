@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens\Models;
 
 use Carbon\Carbon;
+use Garbuzivan\Laraveltokens\Interfaces\ModelToken;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GlobalToken extends Model
+class GlobalToken extends Model implements ModelToken
 {
     use HasFactory;
 
@@ -21,6 +22,7 @@ class GlobalToken extends Model
         'token',
         'title',
         'expiration',
+        'last_use',
     ];
 
     /**
@@ -28,6 +30,7 @@ class GlobalToken extends Model
      */
     protected $dates = [
         'expiration',
+        'last_use',
         'created_at',
         'updated_at',
     ];
@@ -49,6 +52,7 @@ class GlobalToken extends Model
         'token' => 'string',
         'title' => 'string',
         'expiration' => 'datetime',
+        'last_use' => 'datetime',
     ];
 
     /**

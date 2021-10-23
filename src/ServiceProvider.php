@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens;
 
+use Garbuzivan\Laraveltokens\Commands\CreateGlobalTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\CreateTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\DeactivationByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\DeactivationByUserCommand;
@@ -48,6 +49,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ProlongationByIDCommand::class,
                 ProlongationByUserCommand::class,
                 ProlongationByTokenCommand::class,
+                CreateGlobalTokenCommand::class,
             ]);
         }
     }

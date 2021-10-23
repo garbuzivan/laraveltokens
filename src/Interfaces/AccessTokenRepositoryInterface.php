@@ -155,11 +155,11 @@ interface AccessTokenRepositoryInterface
     /**
      * Фиксация последней активности токена
      *
-     * @param string $token
+     * @param int $token_id
      *
      * @return bool
      */
-    public function setLastUseAccessToken(string $token): bool;
+    public function setLastUseAccessToken(int $token_id): bool;
 
     /**
      * Проверка полиморфной связи
