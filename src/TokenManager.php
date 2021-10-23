@@ -192,12 +192,12 @@ class TokenManager
     /**
      * Продлить срок действия токена по id токена
      *
-     * @param int      $token_id
-     * @param DateTime $expiration
+     * @param int           $token_id
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessTokenById(int $token_id, DateTime $expiration): bool
+    public function prolongationAccessTokenById(int $token_id, ?DateTime $expiration = null): bool
     {
         return $this->accessTokenRepository->prolongationAccessTokenById($token_id, $expiration);
     }
@@ -205,13 +205,13 @@ class TokenManager
     /**
      * Продлить срок действия всех токенов по id пользователя
      *
-     * @param int      $user_id
-     * @param string   $user_type
-     * @param DateTime $expiration
+     * @param int           $user_id
+     * @param string        $user_type
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessTokenByUser(int $user_id, string $user_type, DateTime $expiration): bool
+    public function prolongationAccessTokenByUser(int $user_id, string $user_type, ?DateTime $expiration = null): bool
     {
         return $this->accessTokenRepository->prolongationAccessTokenByUser($user_id, $user_type, $expiration);
     }
@@ -219,12 +219,12 @@ class TokenManager
     /**
      * Продлить срок действия токена по токену
      *
-     * @param string   $token
-     * @param DateTime $expiration
+     * @param string        $token
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessToken(string $token, DateTime $expiration): bool
+    public function prolongationAccessToken(string $token, ?DateTime $expiration = null): bool
     {
         return $this->accessTokenRepository->prolongationAccessToken($token, $expiration);
     }

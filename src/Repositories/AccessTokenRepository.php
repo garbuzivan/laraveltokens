@@ -138,12 +138,12 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * Продлить срок действия токена по id токена
      *
-     * @param int      $token_id
-     * @param DateTime $expiration
+     * @param int           $token_id
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessTokenById(int $token_id, DateTime $expiration): bool
+    public function prolongationAccessTokenById(int $token_id, ?DateTime $expiration = null): bool
     {
         return (bool)AccessToken::where('id', $token_id)->update(['expiration' => $expiration]);
     }
@@ -151,12 +151,12 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * Продлить срок действия токена
      *
-     * @param string   $token
-     * @param DateTime $expiration
+     * @param string        $token
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessToken(string $token, DateTime $expiration): bool
+    public function prolongationAccessToken(string $token, ?DateTime $expiration = null): bool
     {
         return (bool)AccessToken::where('token', $token)->update(['expiration' => $expiration]);
     }
@@ -164,13 +164,13 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * Продлить срок действия всех токенов по id пользователя
      *
-     * @param int      $user_id
-     * @param string   $user_type
-     * @param DateTime $expiration
+     * @param int           $user_id
+     * @param string        $user_type
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationAccessTokenByUser(int $user_id, string $user_type, DateTime $expiration): bool
+    public function prolongationAccessTokenByUser(int $user_id, string $user_type, ?DateTime $expiration = null): bool
     {
         return (bool)AccessToken::where('user_id', $user_id)
             ->where('user_type', $user_type)
@@ -270,7 +270,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function isMorph(int $user_id, string $user_type): void
     {
-        $user = app($user_type)/** @scrutinizer ignore-call */->where('id', $user_id)->first();
+        $user = app($user_type)->/** @scrutinizer ignore-call */ where('id', $user_id)->first();
         if (is_null($user)) {
             throw new UserNotExistsException;
         }
