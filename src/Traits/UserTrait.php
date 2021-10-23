@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens\Traits;
 
 use DateTime;
-use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
 use Garbuzivan\Laraveltokens\Models\RefreshToken;
 use Garbuzivan\Laraveltokens\TokenManager;

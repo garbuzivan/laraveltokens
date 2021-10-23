@@ -5,17 +5,20 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens;
 
 use Garbuzivan\Laraveltokens\Repositories\AccessTokenRepository;
+use Garbuzivan\Laraveltokens\Repositories\GlobalTokenRepository;
 
 class Config
 {
     /**
      * Соль для сигнатур
+     *
      * @var string
      */
     protected string $salt = 'Fo3SMqqUbrxKJMQW0sVOB4Q';
 
     /**
      * Название конфигурационного файла
+     *
      * @var string
      */
     protected string $configName = 'laraveltokens';
@@ -23,36 +26,49 @@ class Config
     /**
      * Хранение в токена в открытом или зашифрованном виде
      * Зашифрованный тип хранения отключает возможность просматривать токен или вносить его вручную
+     *
      * @var bool
      */
     protected bool $encryption = false;
 
     /**
      * Автоматическое удаление токенов с законченым сроком действия
+     *
      * @var  bool
      */
     protected bool $autoClear = true;
 
     /**
      * Пауза перед автоматическим удалением токенов в секундах
+     *
      * @var  int
      */
     protected int $autoClearPause = 8640000;
 
     /**
      * Репозиторий
+     *
      * @var string
      */
-    protected string $repository = AccessTokenRepository::class;
+    protected string $repository_access = AccessTokenRepository::class;
+
+    /**
+     * Репозиторий
+     *
+     * @var string
+     */
+    protected string $repository_global = GlobalTokenRepository::class;
 
     /**
      * Фиксация последней активности токена
+     *
      * @var  bool
      */
     protected bool $lastUse = true;
 
     /**
      * Режим JWT
+     *
      * @var  bool
      */
     protected bool $jwt = true;
@@ -67,6 +83,7 @@ class Config
 
     /**
      * Загрузка данных из конфигурационного файла
+     *
      * @return $this|Config
      */
     public function load(): Config
@@ -74,7 +91,8 @@ class Config
         $this->encryption = (bool)config($this->configName . '.encryption', $this->encryption);
         $this->autoClear = (bool)config($this->configName . '.auto_clear', $this->autoClear);
         $this->autoClearPause = intval(config($this->configName . '.auto_clear_pause', $this->autoClearPause));
-        $this->repository = (string)config($this->configName . '.repository', $this->repository);
+        $this->repository_global = (string)config($this->configName . '.repository_global', $this->repository_global);
+        $this->repository_access = (string)config($this->configName . '.repository_global', $this->repository_access);
         $this->lastUse = (bool)config($this->configName . '.last_use', $this->lastUse);
         $this->jwt = (bool)config($this->configName . '.jwt', $this->jwt);
         $this->salt = (string)config($this->configName . '.salt', $this->salt);
@@ -84,6 +102,7 @@ class Config
 
     /**
      * Проверка на шифрование токена
+     *
      * @return bool
      */
     public function isEncryption(): bool
@@ -93,6 +112,7 @@ class Config
 
     /**
      * Проверка на автоочистку от неиспользуемых токенов
+     *
      * @return bool
      */
     public function isAutoClear(): bool
@@ -102,6 +122,7 @@ class Config
 
     /**
      * Проверка на автоочистку от неиспользуемых токенов
+     *
      * @return int
      */
     public function getAutoClearPause(): int
@@ -110,16 +131,28 @@ class Config
     }
 
     /**
-     * Репозиторий
+     * Репозиторий Access
+     *
      * @return string
      */
-    public function getRepository(): string
+    public function getRepositoryAccessToken(): string
     {
-        return $this->repository;
+        return $this->repository_access;
+    }
+
+    /**
+     * Репозиторий Access
+     *
+     * @return string
+     */
+    public function getRepositoryGlobalToken(): string
+    {
+        return $this->repository_global;
     }
 
     /**
      * Обновлять последнюю активность токена Да\Нет
+     *
      * @return bool
      */
     public function isLastUse(): bool
@@ -129,6 +162,7 @@ class Config
 
     /**
      * Режим JWT
+     *
      * @return bool
      */
     public function isJwt(): bool
@@ -138,6 +172,7 @@ class Config
 
     /**
      * Режим JWT
+     *
      * @return string
      */
     public function getSalt(): string

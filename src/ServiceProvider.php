@@ -16,7 +16,7 @@ use Garbuzivan\Laraveltokens\Commands\ProlongationByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByUserCommand;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
-use Garbuzivan\Laraveltokens\Repositories\AccessTokenRepository;
+use Garbuzivan\Laraveltokens\Interfaces\GlobalTokenRepositoryInterface;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -62,12 +62,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->singleton(Config::class, function () {
             return new Config;
         });
-        $this->app->singleton(AccessTokenRepository::class, function () {
-            return new AccessTokenRepository;
-        });
-        $this->app->bind(AccessTokenRepositoryInterface::class, app(Config::class)->getRepository());
+        $this->app->bind(
+            AccessTokenRepositoryInterface::class,
+            app(Config::class)->getRepositoryAccessToken()
+        );
+        $this->app->bind(
+            GlobalTokenRepositoryInterface::class,
+            app(Config::class)->getRepositoryGlobalToken()
+        );
         $this->app->singleton(TokenManager::class, function () {
-            return new TokenManager(app(Config::class), app(AccessTokenRepositoryInterface::class));
+            return new TokenManager(
+                app(Config::class),
+                app(AccessTokenRepositoryInterface::class),
+                app(GlobalTokenRepositoryInterface::class)
+            );
         });
     }
 
@@ -81,6 +89,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     /**
      * @param string $configFile
+     *
      * @return string
      */
     protected function publishPath(string $configFile): string
