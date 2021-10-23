@@ -15,21 +15,22 @@ class DeactivationByUserCommand extends Command
      *
      * @var string
      */
-    protected $name = 'tokens:deactivation-by-user {user_id}';
+    protected $name = 'tokens:deactivation-by-user {user_id} {user_type?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Удалить токены пользователя по ID пользователя (tokens:deactivation-by-user {user_id})';
+    protected $description = 'Удалить токены пользователя по ID пользователя ' .
+    '(tokens:deactivation-by-user {user_id} {user_type?})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:deactivation-by-user {user_id}';
+    protected $signature = 'tokens:deactivation-by-user {user_id} {user_type?}';
 
     /**
      * @var Composer
@@ -59,11 +60,12 @@ class DeactivationByUserCommand extends Command
     {
         $arguments = $this->arguments();
         $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
+        $user_type = $arguments['user_type'] ?? $this->TokenManager->getDefaultMorph();
         if (is_null($user_id) || $user_id < 1) {
             $this->line('ID пользователя не введен.');
             return 1;
         }
-        $this->TokenManager->deactivationByUser($user_id);
+        $this->TokenManager->deactivationAccessTokenByUser($user_id, $user_type);
         $this->line('Токены пользователя деактивированы.');
         return 1;
     }

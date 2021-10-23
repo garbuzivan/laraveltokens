@@ -16,7 +16,7 @@ class ProlongationByUserCommand extends Command
      *
      * @var string
      */
-    protected $name = 'tokens:prolongation-by-user {token_id} {day?}';
+    protected $name = 'tokens:prolongation-by-user {user_id} {day?} {user_type?}';
 
     /**
      * The console command description.
@@ -24,14 +24,14 @@ class ProlongationByUserCommand extends Command
      * @var string
      */
     protected $description = 'Продлить срок действия всех токенов по id пользователя ' .
-    '(tokens:prolongation-by-user {token_id} {day?})';
+    '(tokens:prolongation-by-user {user_id} {day?} {user_type?})';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'tokens:prolongation-by-user {token_id} {day?}';
+    protected $signature = 'tokens:prolongation-by-user {user_id} {day?} {user_type?}';
 
     /**
      * @var Composer
@@ -61,13 +61,14 @@ class ProlongationByUserCommand extends Command
     {
         $arguments = $this->arguments();
         $user_id = $arguments['user_id'] ? intval($arguments['user_id']) : null;
+        $user_type = $arguments['user_type'] ?? $this->TokenManager->getDefaultMorph();
         if (is_null($user_id) || $user_id < 1) {
             $this->line('ID пользователя не введен.');
             return 1;
         }
-        $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
-        $expiration = Carbon::now()->addDays($day);
-        $this->TokenManager->prolongationByUser($user_id, $expiration);
+        $day = intval($arguments['day']);
+        $expiration = $day > 0 ? Carbon::now()->addDays($day) : null;
+        $this->TokenManager->prolongationAccessTokenByUser($user_id, $user_type, $expiration);
         $this->line('Токены пользователя продлены до ' . $expiration->format('Y-m-d H:i:s') . '.');
         return 1;
     }

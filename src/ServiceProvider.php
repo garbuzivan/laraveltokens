@@ -15,8 +15,8 @@ use Garbuzivan\Laraveltokens\Commands\DeleteTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByIDCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByTokenCommand;
 use Garbuzivan\Laraveltokens\Commands\ProlongationByUserCommand;
-use Garbuzivan\Laraveltokens\Interfaces\TokenRepositoryInterface;
-use Garbuzivan\Laraveltokens\Repositories\TokenRepository;
+use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
+use Garbuzivan\Laraveltokens\Repositories\AccessTokenRepository;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -62,12 +62,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->singleton(Config::class, function () {
             return new Config;
         });
-        $this->app->singleton(TokenRepository::class, function () {
-            return new TokenRepository;
+        $this->app->singleton(AccessTokenRepository::class, function () {
+            return new AccessTokenRepository;
         });
-        $this->app->bind(TokenRepositoryInterface::class, app(Config::class)->getRepository());
+        $this->app->bind(AccessTokenRepositoryInterface::class, app(Config::class)->getRepository());
         $this->app->singleton(TokenManager::class, function () {
-            return new TokenManager(app(Config::class), app(TokenRepositoryInterface::class));
+            return new TokenManager(app(Config::class), app(AccessTokenRepositoryInterface::class));
         });
     }
 

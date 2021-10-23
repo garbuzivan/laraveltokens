@@ -22,7 +22,7 @@ class DeleteTokenAllCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Очистить таблицу токенов';
+    protected $description = 'Удалить все токены';
 
     /**
      * The console command signature.
@@ -57,7 +57,7 @@ class DeleteTokenAllCommand extends Command
      */
     public function handle()
     {
-        $this->TokenManager->deleteAll();
+        $this->TokenManager->deleteAllTokens();
         $this->line('Таблица токенов очищена');
         return 1;
     }

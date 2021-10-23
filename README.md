@@ -60,7 +60,7 @@ Package - manager for working with personal and global tokens in Laravel + API M
 
 Список команд можно посмотреть в artisan. Доступно создание, удаление и продление токенов
 
-```php artisan token```
+```php artisan tokens```
 
 ## Пример применения Route::middleware
 

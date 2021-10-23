@@ -63,7 +63,7 @@ class DeleteTokenCommand extends Command
             $this->line('Токен не введен.');
             return 1;
         }
-        $this->TokenManager->deleteByToken($token);
+        $this->TokenManager->deleteAccessToken($token);
         $this->line('Токен удален.');
         return 1;
     }

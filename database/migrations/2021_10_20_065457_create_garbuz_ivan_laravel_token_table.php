@@ -15,15 +15,34 @@ class CreateGarbuzIvanLaravelTokenTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('access_tokens', function (Blueprint $table) {
             $table->id();
-			$table->string('token')->unique();
-			$table->integer('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
-			$table->string('title')->nullable();
-			$table->datetime('expiration')->nullable();
-			$table->datetime('last_use')->nullable();
-			$table->index('token');
-			$table->index('user_id');
+            $table->string('token')->unique();
+            $table->morphs('user');
+            $table->string('title')->nullable();
+            $table->datetime('expiration')->nullable();
+            $table->datetime('last_use')->nullable();
+            $table->index('token');
+            $table->index('user_id');
+            $table->timestamps();
+        });
+        Schema::create('refresh_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('token')->unique();
+            $table->morphs('user');
+            $table->integer('access_token_id')->nullable()->references('id')->on('access_tokens')->onDelete('cascade');
+            $table->datetime('expiration')->nullable();
+            $table->index('token');
+            $table->index('user_id');
+            $table->index('access_token_id');
+            $table->timestamps();
+        });
+        Schema::create('global_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('token')->unique();
+            $table->string('title')->nullable();
+            $table->datetime('expiration')->nullable();
+            $table->index('token');
             $table->timestamps();
         });
     }
@@ -35,6 +54,8 @@ class CreateGarbuzIvanLaravelTokenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tokens');
+        Schema::dropIfExists('access_tokens');
+        Schema::dropIfExists('refresh_tokens');
+        Schema::dropIfExists('global_tokens');
     }
 }

@@ -66,7 +66,7 @@ class ProlongationByIDCommand extends Command
         }
         $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
         $expiration = Carbon::now()->addDays($day);
-        $this->TokenManager->prolongationById($token_id, $expiration);
+        $this->TokenManager->prolongationAccessTokenById($token_id, $expiration);
         $this->line('Токен продлен до ' . $expiration->format('Y-m-d H:i:s') . '.');
         return 1;
     }

@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens;
 
-use Garbuzivan\Laraveltokens\Repositories\TokenRepository;
+use Garbuzivan\Laraveltokens\Repositories\AccessTokenRepository;
 
 class Config
 {
+    /**
+     * Соль для сигнатур
+     * @var string
+     */
+    protected string $salt = 'Fo3SMqqUbrxKJMQW0sVOB4Q';
+
     /**
      * Название конфигурационного файла
      * @var string
@@ -37,13 +43,19 @@ class Config
      * Репозиторий
      * @var string
      */
-    protected string $repository = TokenRepository::class;
+    protected string $repository = AccessTokenRepository::class;
 
     /**
      * Фиксация последней активности токена
      * @var  bool
      */
     protected bool $lastUse = true;
+
+    /**
+     * Режим JWT
+     * @var  bool
+     */
+    protected bool $jwt = true;
 
     /**
      * Configuration constructor.
@@ -64,6 +76,9 @@ class Config
         $this->autoClearPause = intval(config($this->configName . '.auto_clear_pause', $this->autoClearPause));
         $this->repository = (string)config($this->configName . '.repository', $this->repository);
         $this->lastUse = (bool)config($this->configName . '.last_use', $this->lastUse);
+        $this->jwt = (bool)config($this->configName . '.jwt', $this->jwt);
+        $this->salt = (string)config($this->configName . '.salt', $this->salt);
+        $this->salt = file_exists($this->salt) ? file_get_contents($this->salt) : $this->salt;
         return $this;
     }
 
@@ -110,5 +125,23 @@ class Config
     public function isLastUse(): bool
     {
         return $this->lastUse;
+    }
+
+    /**
+     * Режим JWT
+     * @return bool
+     */
+    public function isJwt(): bool
+    {
+        return $this->jwt;
+    }
+
+    /**
+     * Режим JWT
+     * @return string
+     */
+    public function getSalt(): string
+    {
+        return $this->salt;
     }
 }

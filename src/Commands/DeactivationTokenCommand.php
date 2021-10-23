@@ -63,7 +63,7 @@ class DeactivationTokenCommand extends Command
             $this->line('Токен не введен.');
             return 1;
         }
-        $this->TokenManager->deleteByToken($token);
+        $this->TokenManager->deactivationAccessToken($token);
         $this->line('Токен деактивирован.');
         return 1;
     }

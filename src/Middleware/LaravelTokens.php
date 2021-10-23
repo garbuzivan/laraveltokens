@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens\Middleware;
 
-use App\Models\User;
 use Closure;
 use Garbuzivan\Laraveltokens\Exceptions\EmptyTokenException;
 use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotNalidException;
 use Garbuzivan\Laraveltokens\TokenManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,8 +55,8 @@ class LaravelTokens
         } catch (TokenIsNotNalidException $e) {
             abort(403);
         }
-        if ($token->user instanceof User) {
-            Auth::loginUsingId($token->user->id);
+        if ($token->user instanceof Authenticatable) {
+            Auth::login($token->user);
         }
         // Если все прошло успешно, то мы пропускаем запрос дальше
         return $next($request);

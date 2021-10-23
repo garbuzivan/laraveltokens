@@ -4,28 +4,23 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens\Models;
 
-/** @scrutinizer ignore-type */
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Token extends Model
+class GlobalToken extends Model
 {
     use HasFactory;
 
-    protected $table = 'tokens';
+    protected $table = 'global_tokens';
 
     /**
      * @var string[]
      */
     protected $fillable = [
         'token',
-        'user_id',
         'title',
         'expiration',
-        'last_use',
     ];
 
     /**
@@ -33,7 +28,6 @@ class Token extends Model
      */
     protected $dates = [
         'expiration',
-        'last_use',
         'created_at',
         'updated_at',
     ];
@@ -53,10 +47,8 @@ class Token extends Model
     protected $casts = [
         'id' => 'integer',
         'token' => 'string',
-        'user_id' => 'integer',
         'title' => 'string',
         'expiration' => 'datetime',
-        'last_use' => 'datetime',
     ];
 
     /**
@@ -69,20 +61,11 @@ class Token extends Model
     ];
 
     /**
-     * Relation to wallet
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    /**
      * Проверка валидности токена по дате
      * @return bool
      */
     public function isValid(): bool
     {
-        return $this->expiration > Carbon::now();
+        return is_null($this->expiration) || $this->expiration > Carbon::now();
     }
 }
