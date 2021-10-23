@@ -69,7 +69,7 @@ class TokenRepository implements TokenRepositoryInterface
      */
     public function deleteAll(): bool
     {
-        DB::table('sensors')->truncate();
+        DB::table('tokens')->truncate();
         return true;
     }
 

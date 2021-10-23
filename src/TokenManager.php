@@ -22,7 +22,7 @@ class TokenManager
     /**
      * @var TokenRepositoryInterface
      */
-    protected TokenRepositoryInterface $TokenRepository;
+    protected TokenRepositoryInterface $tokenRepository;
 
     /**
      * Configuration constructor.
@@ -32,7 +32,7 @@ class TokenManager
     public function __construct(Config $config, TokenRepositoryInterface $TokenRepository)
     {
         $this->config = $config;
-        $this->TokenRepository = $TokenRepository;
+        $this->tokenRepository = $TokenRepository;
     }
 
     /**
@@ -44,12 +44,12 @@ class TokenManager
     public function auth(string $token): Token
     {
         $token = $this->config->isEncryption() ? $this->getHash($token) : $token;
-        $tokenDb = $this->TokenRepository->getByToken($token);
+        $tokenDb = $this->tokenRepository->getByToken($token);
         if (is_null($tokenDb) || !$tokenDb->isValid()) {
             throw new TokenIsNotNalidException;
         }
         if ($this->config->isLastUse()) {
-            $this->TokenRepository->setLastUse($token);
+            $this->tokenRepository->setLastUse($token);
         }
         return $tokenDb;
     }
@@ -62,7 +62,7 @@ class TokenManager
     public function isValid(string $token): bool
     {
         $token = $this->config->isEncryption() ? $this->getHash($token) : $token;
-        $tokenInfo = $this->TokenRepository->getByToken($token);
+        $tokenInfo = $this->tokenRepository->getByToken($token);
         if (is_null($tokenInfo) || !$tokenInfo->isValid()) {
             return false;
         }
@@ -88,8 +88,8 @@ class TokenManager
         if (is_null($token) || mb_strlen($token) < 32) {
             $token = is_null($token) ? $this->generateToken() : $token;
         }
-        $this->TokenRepository->getUser($user_id);
-        $tokenDB = $this->TokenRepository->create($title, $expiration, $user_id, $this->getTokenDb($token));
+        $this->tokenRepository->getUser($user_id);
+        $tokenDB = $this->tokenRepository->create($title, $expiration, $user_id, $this->getTokenDb($token));
         $tokenDB->token = $token;
         return $tokenDB;
     }
@@ -101,7 +101,7 @@ class TokenManager
      */
     public function deleteById(int $token_id): bool
     {
-        return $this->TokenRepository->deleteById($token_id);
+        return $this->tokenRepository->deleteById($token_id);
     }
 
     /**
@@ -111,7 +111,7 @@ class TokenManager
      */
     public function deleteByToken(string $token): bool
     {
-        return $this->TokenRepository->deleteByToken($token);
+        return $this->tokenRepository->deleteByToken($token);
     }
 
     /**
@@ -121,7 +121,7 @@ class TokenManager
      */
     public function deleteByUser(int $user_id): bool
     {
-        return $this->TokenRepository->deleteByUser($user_id);
+        return $this->tokenRepository->deleteByUser($user_id);
     }
 
     /**
@@ -130,7 +130,7 @@ class TokenManager
      */
     public function deleteAll(): bool
     {
-        return $this->TokenRepository->deleteAll();
+        return $this->tokenRepository->deleteAll();
     }
 
     /**
@@ -140,7 +140,7 @@ class TokenManager
      */
     public function deactivationById(int $token_id): bool
     {
-        return $this->TokenRepository->deactivationById($token_id);
+        return $this->tokenRepository->deactivationById($token_id);
     }
 
     /**
@@ -150,7 +150,7 @@ class TokenManager
      */
     public function deactivationByToken(string $token): bool
     {
-        return $this->TokenRepository->deactivationByToken($token);
+        return $this->tokenRepository->deactivationByToken($token);
     }
 
     /**
@@ -160,7 +160,7 @@ class TokenManager
      */
     public function deactivationByUser(int $user_id): bool
     {
-        return $this->TokenRepository->deactivationByUser($user_id);
+        return $this->tokenRepository->deactivationByUser($user_id);
     }
 
     /**
@@ -171,7 +171,7 @@ class TokenManager
      */
     public function prolongationById(int $token_id, DateTime $expiration): bool
     {
-        return $this->TokenRepository->prolongationById($token_id, $expiration);
+        return $this->tokenRepository->prolongationById($token_id, $expiration);
     }
 
     /**
@@ -182,7 +182,7 @@ class TokenManager
      */
     public function prolongationByUser(int $user_id, DateTime $expiration): bool
     {
-        return $this->TokenRepository->prolongationByUser($user_id, $expiration);
+        return $this->tokenRepository->prolongationByUser($user_id, $expiration);
     }
 
     /**
@@ -193,7 +193,7 @@ class TokenManager
      */
     public function prolongationByToken(string $token, DateTime $expiration): bool
     {
-        return $this->TokenRepository->prolongationByToken($token, $expiration);
+        return $this->tokenRepository->prolongationByToken($token, $expiration);
     }
 
     /**
