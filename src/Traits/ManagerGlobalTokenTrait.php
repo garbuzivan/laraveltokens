@@ -35,11 +35,12 @@ trait ManagerGlobalTokenTrait
         ?DateTime $expiration = null,
         ?string   $token = null
     ): GlobalToken {
-        $token = is_null($token) || mb_strlen($token) < 32 ? $this->generateGlobalToken() : $token;
+        $token = is_null($token) || mb_strlen($token) < 32 ?
+            $this->/** @scrutinizer ignore-call */ generateGlobalToken() : $token;
         $tokenDB = $this->GlobalTokenRepository->createGlobalToken(
             $title,
             $expiration,
-            $this->getGlobalTokenDb($token)
+            $this->/** @scrutinizer ignore-call */ getGlobalTokenDb($token)
         );
         $tokenDB->token = $token;
         return $tokenDB;

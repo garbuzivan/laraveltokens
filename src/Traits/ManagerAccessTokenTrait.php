@@ -41,15 +41,16 @@ trait ManagerAccessTokenTrait
         ?string   $user_type = null,
         ?string   $token = null
     ): AccessToken {
-        $token = is_null($token) || mb_strlen($token) < 32 ? $this->generateAccessToken() : $token;
-        $user_type = is_null($user_type) ? $this->getDefaultMorph() : $user_type;
+        $token = is_null($token) || mb_strlen($token) < 32 ?
+            $this->/** @scrutinizer ignore-call */ generateAccessToken() : $token;
+        $user_type = is_null($user_type) ? $this->/** @scrutinizer ignore-call */ getDefaultMorph() : $user_type;
         $this->accessTokenRepository->isMorph($user_id, $user_type);
         $tokenDB = $this->accessTokenRepository->createAccessToken(
             $title,
             $expiration,
             $user_id,
             $user_type,
-            $this->getAccessTokenDb($token)
+            $this->/** @scrutinizer ignore-call */ getAccessTokenDb($token)
         );
         $tokenDB->token = $token;
         return $tokenDB;

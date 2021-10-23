@@ -70,22 +70,22 @@ interface GlobalTokenRepositoryInterface
     /**
      * Продлить срок действия токена по id токена
      *
-     * @param int      $token_id
-     * @param DateTime $expiration
+     * @param int           $token_id
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationGlobalTokenById(int $token_id, DateTime $expiration): bool;
+    public function prolongationGlobalTokenById(int $token_id, ?DateTime $expiration = null): bool;
 
     /**
      * Продлить срок действия токена по токену
      *
-     * @param string   $token
-     * @param DateTime $expiration
+     * @param string        $token
+     * @param DateTime|null $expiration
      *
      * @return bool
      */
-    public function prolongationGlobalToken(string $token, DateTime $expiration): bool;
+    public function prolongationGlobalToken(string $token, ?DateTime $expiration = null): bool;
 
     /**
      * Получить данные токена по ID
