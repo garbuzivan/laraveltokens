@@ -178,35 +178,6 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     }
 
     /**
-     * Редактировать токен
-     *
-     * @param int      $token_id   - ID токена
-     * @param string   $title      - заголовок токена
-     * @param DateTime $expiration - до когда действует токен
-     * @param int      $user_id    - ID пользователя
-     * @param string   $user_type  - полиморфная связь
-     * @param string   $token      - токен
-     *
-     * @return bool
-     */
-    public function editAccessToken(
-        int      $token_id,
-        string   $title,
-        DateTime $expiration,
-        int      $user_id,
-        string   $user_type,
-        string   $token
-    ): bool {
-        return (bool)AccessToken::where('id', $token_id)->update([
-            'token'      => $token,
-            'user_id'    => $user_id,
-            'user_type'  => $user_type,
-            'title'      => $title,
-            'expiration' => $expiration,
-        ]);
-    }
-
-    /**
      * Получить список токенов по ID пользователя
      *
      * @param int    $user_id

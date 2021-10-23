@@ -125,27 +125,6 @@ interface AccessTokenRepositoryInterface
     public function prolongationAccessToken(string $token, ?DateTime $expiration = null): bool;
 
     /**
-     * Редактировать токен
-     *
-     * @param int      $token_id   - ID токена
-     * @param string   $title      - заголовок токена
-     * @param DateTime $expiration - до когда действует токен
-     * @param int      $user_id    - ID пользователя
-     * @param string   $user_type  - полиморфная связь
-     * @param string   $token      - токен
-     *
-     * @return bool
-     */
-    public function editAccessToken(
-        int      $token_id,
-        string   $title,
-        DateTime $expiration,
-        int      $user_id,
-        string   $user_type,
-        string   $token
-    ): bool;
-
-    /**
      * Получить коллекцию токенов по ID пользователя
      *
      * @param int    $user_id
