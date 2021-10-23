@@ -9,6 +9,7 @@ use DateTime;
 use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -269,7 +270,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function isMorph(int $user_id, string $user_type): void
     {
-        $user = app($user_type)->where('id', $user_id)->first();
+        $user = app($user_type)/** @scrutinizer ignore-call */->where('id', $user_id)->first();
         if (is_null($user)) {
             throw new UserNotExistsException;
         }

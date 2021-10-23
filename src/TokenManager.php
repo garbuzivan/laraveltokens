@@ -24,7 +24,8 @@ class TokenManager
 
     /**
      * Configuration constructor.
-     * @param Config $config
+     *
+     * @param Config                         $config
      * @param AccessTokenRepositoryInterface $TokenRepository
      */
     public function __construct(Config $config, AccessTokenRepositoryInterface $TokenRepository)
@@ -35,7 +36,9 @@ class TokenManager
 
     /**
      * Авторизация по токену
+     *
      * @param string $token
+     *
      * @return AccessToken
      * @throws TokenIsNotNalidException
      */
@@ -54,7 +57,9 @@ class TokenManager
 
     /**
      * Проверить актуальность токена (наличие токена и дата активности)
+     *
      * @param string $token
+     *
      * @return bool
      */
     public function isValid(string $token): bool
@@ -69,11 +74,13 @@ class TokenManager
 
     /**
      * Создать токен
-     * @param string $title - заголовок токена
-     * @param int $user_id - ID клиента
+     *
+     * @param string        $title      - заголовок токена
+     * @param int           $user_id    - ID клиента
      * @param DateTime|null $expiration - до когда действует токен, null - бессрочно
-     * @param string|null $user_type - класс полиморфной связи, null == App\Models\User
-     * @param string|null $token - токен, null == автоматическая генерация токена
+     * @param string|null   $user_type  - класс полиморфной связи, null == App\Models\User
+     * @param string|null   $token      - токен, null == автоматическая генерация токена
+     *
      * @return AccessToken
      * @throws Exceptions\UserNotExistsException
      */
@@ -100,7 +107,9 @@ class TokenManager
 
     /**
      * Удалить токен по ID токена
+     *
      * @param int $token_id - ID токена
+     *
      * @return bool
      */
     public function deleteAccessTokenById(int $token_id): bool
@@ -110,7 +119,9 @@ class TokenManager
 
     /**
      * Удалить токен
+     *
      * @param string $token
+     *
      * @return bool
      */
     public function deleteAccessToken(string $token): bool
@@ -133,6 +144,7 @@ class TokenManager
 
     /**
      * Очистить таблицу токенов
+     *
      * @return bool
      */
     public function deleteAllTokens(): bool
@@ -142,7 +154,9 @@ class TokenManager
 
     /**
      * Деактивировать токен (прекратить срок действия токена) по ID токена
+     *
      * @param int $token_id - ID токена
+     *
      * @return bool
      */
     public function deactivationAccessTokenById(int $token_id): bool
@@ -152,7 +166,9 @@ class TokenManager
 
     /**
      * Деактивировать токен (прекратить срок действия токена) по токену
+     *
      * @param string $token
+     *
      * @return bool
      */
     public function deactivationAccessToken(string $token): bool
@@ -175,8 +191,10 @@ class TokenManager
 
     /**
      * Продлить срок действия токена по id токена
-     * @param int $token_id
+     *
+     * @param int      $token_id
      * @param DateTime $expiration
+     *
      * @return bool
      */
     public function prolongationAccessTokenById(int $token_id, DateTime $expiration): bool
@@ -200,8 +218,10 @@ class TokenManager
 
     /**
      * Продлить срок действия токена по токену
-     * @param string $token
+     *
+     * @param string   $token
      * @param DateTime $expiration
+     *
      * @return bool
      */
     public function prolongationAccessToken(string $token, DateTime $expiration): bool
@@ -211,6 +231,7 @@ class TokenManager
 
     /**
      * Генерация случайного токена на основе даты и случайной строки
+     *
      * @return string
      */
     public function generateAccessToken(): string
@@ -220,7 +241,9 @@ class TokenManager
 
     /**
      * Преобразование токена для БД в зависимости от настройки Encryption
+     *
      * @param string $token
+     *
      * @return string
      */
     public function getAccessTokenDb(string $token): string
@@ -230,7 +253,9 @@ class TokenManager
 
     /**
      * Получение хэша
+     *
      * @param string $string
+     *
      * @return string
      */
     public function getHash(string $string): string
@@ -240,8 +265,10 @@ class TokenManager
 
     /**
      * Сравнение токена
+     *
      * @param string $token
      * @param string $hash
+     *
      * @return bool
      */
     public function isVerify(string $token, string $hash): bool
@@ -251,6 +278,7 @@ class TokenManager
 
     /**
      * Получить deault Morph
+     *
      * @return string
      */
     public function getDefaultMorph(): string

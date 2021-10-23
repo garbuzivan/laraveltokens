@@ -18,7 +18,7 @@ trait UserTrait
      */
     public function accessTokens(): MorphMany
     {
-        return $this->morphMany(AccessToken::class, 'userable');
+        return $this->morphMany(AccessToken::class, 'user');
     }
 
     /**
@@ -26,27 +26,29 @@ trait UserTrait
      */
     public function refreshTokens(): MorphMany
     {
-        return $this->morphMany(RefreshToken::class, 'userable');
+        return $this->/** @scrutinizer ignore-call */ morphMany(RefreshToken::class, 'user');
     }
 
     /**
      * Создать новый токен пользователя
-     * @param string $title
+     *
+     * @param string        $title
      * @param DateTime|null $expiration
+     *
      * @return AccessToken
-     * @throws UserNotExistsException
      */
     public function accessTokenCreate(string $title = '', ?DateTime $expiration = null): AccessToken
     {
-        return app(TokenManager::class)->createAccessToken($title, $expiration, $this->id);
+        return app(TokenManager::class)->createAccessToken($title, $expiration, $this->id, static::class);
     }
 
     /**
      * Удалить все токены пользователя
+     *
      * @return bool
      */
     public function accessTokensDelete(): bool
     {
-        return app(TokenManager::class)->deleteByUserAccessToken($this->id);
+        return app(TokenManager::class)->deleteAccessTokenByUser($this->id, static::class);
     }
 }
