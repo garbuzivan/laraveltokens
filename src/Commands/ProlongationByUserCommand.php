@@ -66,10 +66,10 @@ class ProlongationByUserCommand extends Command
             $this->line('ID пользователя не введен.');
             return 1;
         }
-        $day = intval($arguments['day']);
-        $expiration = $day > 0 ? Carbon::now()->addDays($day) : null;
+        $expiration = intval($arguments['day']) > 0 ? Carbon::now()->addDays(intval($arguments['day'])) : null;
         $this->TokenManager->prolongationAccessTokenByUser($user_id, $user_type, $expiration);
-        $this->line('Токены пользователя продлены до ' . $expiration->format('Y-m-d H:i:s') . '.');
+        $date = is_null($expiration) ? 'навсегда' : 'до ' . $expiration->format('Y-m-d H:i:s');
+        $this->line('Токен продлен ' . $date . '.');
         return 1;
     }
 }

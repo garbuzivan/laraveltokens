@@ -64,10 +64,10 @@ class ProlongationByTokenCommand extends Command
             $this->line('Токен не введен.');
             return 1;
         }
-        $day = intval($arguments['day']) > 0 ? intval($arguments['day']) : 365;
-        $expiration = Carbon::now()->addDays($day);
+        $expiration = intval($arguments['day']) > 0 ? Carbon::now()->addDays(intval($arguments['day'])) : null;
         $this->TokenManager->prolongationAccessToken($token, $expiration);
-        $this->line('Токен продлен до ' . $expiration->format('Y-m-d H:i:s') . '.');
+        $date = is_null($expiration) ? 'навсегда' : 'до ' . $expiration->format('Y-m-d H:i:s');
+        $this->line('Токен продлен ' . $date . '.');
         return 1;
     }
 }
