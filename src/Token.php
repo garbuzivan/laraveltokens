@@ -126,12 +126,15 @@ class Token
     }
 
     /**
-     * @param GlobalToken $token
+     * @param ModelToken $token
      *
      * @return void
      */
     public function loadDefault(ModelToken $token): void
     {
+        if (!$token instanceof GlobalToken && !$token instanceof AccessToken) {
+            return;
+        }
         $this->id = $token->id ?? $this->id;
         $this->token = $token->token ?? $this->token;
         $this->title = $token->title ?? $this->title;

@@ -47,12 +47,12 @@ trait ManagerAccessTokenTrait
         $array = explode('\\', $user_type);
         $type = end($array);
         $token = is_null($token) || mb_strlen($token) < 32 ?
-            $this->generateToken(
+            $this->/** @scrutinizer ignore-call */ generateToken(
                 ['uid' => $user_id, 'type' => $type],
                 ['exp' => $expiration]
             ) : $token;
         $user_type = is_null($user_type) ? $this->/** @scrutinizer ignore-call */ getDefaultMorph() : $user_type;
-        $this->isMorph($user_id, $user_type);
+        $this->/** @scrutinizer ignore-call */ isMorph($user_id, $user_type);
         $tokenDB = $this->accessTokenRepository->createAccessToken(
             $title,
             $expiration,

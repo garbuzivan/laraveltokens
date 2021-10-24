@@ -17,7 +17,7 @@ trait UserTrait
      */
     public function accessTokens(): MorphMany
     {
-        return $this->morphMany(AccessToken::class, 'user');
+        return $this->/** @scrutinizer ignore-call */ morphMany(AccessToken::class, 'user');
     }
 
     /**
