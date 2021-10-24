@@ -106,9 +106,9 @@ class Token
     {
         $this->type = AccessToken::class;
         $this->loadDefault($token);
-        $this->user_id = $token->user_id;
-        $this->user_type = $token->user_type;
-        $this->user = $token->user;
+        $this->user_id = $token->user_id ?? $this->user_id;
+        $this->user_type = $token->user_type ?? $this->user_type;
+        $this->user = $token->user ?? $this->user;
         $this->is_valid = $token->isValid();
         return $this;
     }
@@ -132,11 +132,11 @@ class Token
      */
     public function loadDefault(ModelToken $token): void
     {
-        $this->id = $token->id;
-        $this->token = $token->token;
-        $this->title = $token->title;
-        $this->expiration = $token->expiration;
-        $this->last_use = $token->last_use;
+        $this->id = $token->id ?? $this->id;
+        $this->token = $token->token ?? $this->token;
+        $this->title = $token->title ?? $this->title;
+        $this->expiration = $token->expiration ?? $this->expiration;
+        $this->last_use = $token->last_use ?? $this->last_use;
         $this->is_valid = $token->isValid();
     }
 

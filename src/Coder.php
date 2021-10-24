@@ -27,6 +27,13 @@ class Coder
         return \implode('.', $segments);
     }
 
+    /**
+     * @param string $token
+     * @param string $key
+     *
+     * @return array
+     * @throws Exception
+     */
     public function decode(string $token, string $key): array
     {
         $data = [];
@@ -35,15 +42,9 @@ class Coder
             return $data;
         }
         [$headb64, $bodyb64, $cryptob64] = $tks;
-        if (null === $header = $this->jsonDecode($this->urlsafeB64Decode($headb64))) {
-            return $data;
-        }
-        if (null === $payload = $this->jsonDecode($this->urlsafeB64Decode($bodyb64))) {
-            return $data;
-        }
-        if (false === $sig = $this->urlsafeB64Decode($cryptob64)) {
-            return $data;
-        }
+        $header = $this->jsonDecode($this->urlsafeB64Decode($headb64));
+        $payload = $this->jsonDecode($this->urlsafeB64Decode($bodyb64));
+        $sig = $this->urlsafeB64Decode($cryptob64);
         $segments = [];
         $segments[] = $this->urlsafeB64Encode($this->jsonEncode($header));
         $segments[] = $this->urlsafeB64Encode($this->jsonEncode($payload));

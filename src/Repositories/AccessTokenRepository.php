@@ -6,7 +6,6 @@ namespace Garbuzivan\Laraveltokens\Repositories;
 
 use Carbon\Carbon;
 use DateTime;
-use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
 use Illuminate\Database\Eloquent\Collection;

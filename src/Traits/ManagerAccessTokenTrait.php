@@ -43,11 +43,11 @@ trait ManagerAccessTokenTrait
         ?string   $user_type = null,
         ?string   $token = null
     ): AccessToken {
-        $user_type = !is_null($user_type) ? $user_type : $this->getDefaultMorph();
+        $user_type = !is_null($user_type) ? $user_type : $this->/** @scrutinizer ignore-call */ getDefaultMorph();
         $array = explode('\\', $user_type);
         $type = end($array);
         $token = is_null($token) || mb_strlen($token) < 32 ?
-            $this->/** @scrutinizer ignore-call */ generateToken(
+            $this->generateToken(
                 ['uid' => $user_id, 'type' => $type],
                 ['exp' => $expiration]
             ) : $token;
