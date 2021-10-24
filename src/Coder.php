@@ -66,27 +66,8 @@ class Coder
      */
     public function jsonDecode(string $input): array
     {
-        if (\version_compare(PHP_VERSION, '5.4.0', '>=')
-            && !(\defined('JSON_C_VERSION') && PHP_INT_SIZE > 4)
-        ) {
-            /** In PHP >=5.4.0, json_decode() accepts an options parameter, that allows you
-             * to specify that large ints (like Steam Transaction IDs) should be treated as
-             * strings, rather than the PHP default behaviour of converting them to floats.
-             */
-            $obj = \json_decode($input, true, 512, JSON_BIGINT_AS_STRING);
-        } else {
-            /** Not all servers will support that, however, so for older versions we must
-             * manually detect large ints in the JSON string and quote them (thus converting
-             *them to strings) before decoding, hence the preg_replace() call.
-             */
-            $maxLength = \strlen((string)PHP_INT_MAX) - 1;
-            $withoutBigints = \preg_replace('/:\s*(-?\d{' . $maxLength . ',})/', ': "$1"', $input);
-            $obj = \json_decode($withoutBigints, true);
-        }
-
-        if ($errno = \json_last_error()) {
-            $this->handleJsonError($errno);
-        } elseif ($obj === null && $input !== 'null') {
+        $obj = \json_decode($input, true);
+        if (is_null($obj)) {
             throw new Exception('Null result with non-null input');
         }
         return $obj;

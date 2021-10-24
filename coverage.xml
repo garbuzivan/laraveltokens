@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1635107359">
-  <project timestamp="1635107359">
+<coverage generated="1635109445">
+  <project timestamp="1635109445">
     <file name="/application/packages/garbuzivan/laraveltokens/src/Coder.php">
       <class name="Garbuzivan\Laraveltokens\Coder" namespace="global">
-        <metrics complexity="21" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="0" elements="64" coveredelements="0"/>
+        <metrics complexity="13" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="0" elements="54" coveredelements="0"/>
       </class>
       <line num="17" type="method" name="encode" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="19" type="stmt" count="0"/>
@@ -15,61 +15,51 @@
       <line num="25" type="stmt" count="0"/>
       <line num="26" type="stmt" count="0"/>
       <line num="27" type="stmt" count="0"/>
-      <line num="30" type="method" name="decode" visibility="public" complexity="6" crap="42" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <line num="33" type="stmt" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <line num="37" type="stmt" count="0"/>
-      <line num="38" type="stmt" count="0"/>
+      <line num="37" type="method" name="decode" visibility="public" complexity="3" crap="12" count="0"/>
       <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
       <line num="41" type="stmt" count="0"/>
       <line num="42" type="stmt" count="0"/>
       <line num="44" type="stmt" count="0"/>
       <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
       <line num="47" type="stmt" count="0"/>
       <line num="48" type="stmt" count="0"/>
       <line num="49" type="stmt" count="0"/>
       <line num="50" type="stmt" count="0"/>
       <line num="51" type="stmt" count="0"/>
       <line num="52" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="66" type="method" name="jsonDecode" visibility="public" complexity="7" crap="56" count="0"/>
-      <line num="68" type="stmt" count="0"/>
+      <line num="53" type="stmt" count="0"/>
+      <line num="55" type="stmt" count="0"/>
+      <line num="67" type="method" name="jsonDecode" visibility="public" complexity="2" crap="6" count="0"/>
       <line num="69" type="stmt" count="0"/>
-      <line num="75" type="stmt" count="0"/>
-      <line num="81" type="stmt" count="0"/>
-      <line num="82" type="stmt" count="0"/>
-      <line num="83" type="stmt" count="0"/>
-      <line num="86" type="stmt" count="0"/>
+      <line num="70" type="stmt" count="0"/>
+      <line num="71" type="stmt" count="0"/>
+      <line num="73" type="stmt" count="0"/>
+      <line num="85" type="method" name="jsonEncode" visibility="public" complexity="2" crap="6" count="0"/>
       <line num="87" type="stmt" count="0"/>
       <line num="88" type="stmt" count="0"/>
       <line num="89" type="stmt" count="0"/>
       <line num="91" type="stmt" count="0"/>
-      <line num="103" type="method" name="jsonEncode" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="102" type="method" name="handleJsonError" visibility="private" complexity="1" crap="2" count="0"/>
+      <line num="104" type="stmt" count="0"/>
       <line num="105" type="stmt" count="0"/>
       <line num="106" type="stmt" count="0"/>
       <line num="107" type="stmt" count="0"/>
+      <line num="108" type="stmt" count="0"/>
       <line num="109" type="stmt" count="0"/>
-      <line num="120" type="method" name="handleJsonError" visibility="private" complexity="1" crap="2" count="0"/>
+      <line num="111" type="stmt" count="0"/>
+      <line num="120" type="method" name="sign" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="122" type="stmt" count="0"/>
-      <line num="123" type="stmt" count="0"/>
-      <line num="124" type="stmt" count="0"/>
-      <line num="125" type="stmt" count="0"/>
-      <line num="126" type="stmt" count="0"/>
-      <line num="127" type="stmt" count="0"/>
-      <line num="129" type="stmt" count="0"/>
-      <line num="138" type="method" name="sign" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="140" type="stmt" count="0"/>
-      <line num="150" type="method" name="urlsafeB64Decode" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="152" type="stmt" count="0"/>
-      <line num="153" type="stmt" count="0"/>
-      <line num="154" type="stmt" count="0"/>
-      <line num="155" type="stmt" count="0"/>
-      <line num="157" type="stmt" count="0"/>
-      <line num="167" type="method" name="urlsafeB64Encode" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="169" type="stmt" count="0"/>
-      <metrics loc="171" ncloc="117" classes="1" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="0" elements="64" coveredelements="0"/>
+      <line num="132" type="method" name="urlsafeB64Decode" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="134" type="stmt" count="0"/>
+      <line num="135" type="stmt" count="0"/>
+      <line num="136" type="stmt" count="0"/>
+      <line num="137" type="stmt" count="0"/>
+      <line num="139" type="stmt" count="0"/>
+      <line num="149" type="method" name="urlsafeB64Encode" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="151" type="stmt" count="0"/>
+      <metrics loc="153" ncloc="92" classes="1" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="0" elements="54" coveredelements="0"/>
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/Commands/CreateGlobalTokenCommand.php">
       <class name="Garbuzivan\Laraveltokens\Commands\CreateGlobalTokenCommand" namespace="global">
@@ -487,7 +477,7 @@
       <metrics loc="116" ncloc="37" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/Interfaces/ModelToken.php">
-      <metrics loc="8" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      <metrics loc="12" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/Middleware/LaravelTokens.php">
       <class name="Garbuzivan\Laraveltokens\Middleware\LaravelTokens" namespace="global">
@@ -552,53 +542,53 @@
       <class name="Garbuzivan\Laraveltokens\Repositories\AccessTokenRepository" namespace="global">
         <metrics complexity="15" methods="15" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="46" coveredelements="0"/>
       </class>
-      <line num="28" type="method" name="createAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="27" type="method" name="createAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="34" type="stmt" count="0"/>
       <line num="35" type="stmt" count="0"/>
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
       <line num="38" type="stmt" count="0"/>
       <line num="39" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="51" type="method" name="deleteAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="53" type="stmt" count="0"/>
-      <line num="63" type="method" name="deleteAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="65" type="stmt" count="0"/>
-      <line num="76" type="method" name="deleteAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="78" type="stmt" count="0"/>
-      <line num="86" type="method" name="deleteAllAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="50" type="method" name="deleteAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="52" type="stmt" count="0"/>
+      <line num="62" type="method" name="deleteAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="64" type="stmt" count="0"/>
+      <line num="75" type="method" name="deleteAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="77" type="stmt" count="0"/>
+      <line num="85" type="method" name="deleteAllAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="87" type="stmt" count="0"/>
       <line num="88" type="stmt" count="0"/>
-      <line num="89" type="stmt" count="0"/>
-      <line num="99" type="method" name="deactivationAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="98" type="method" name="deactivationAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="100" type="stmt" count="0"/>
       <line num="101" type="stmt" count="0"/>
-      <line num="102" type="stmt" count="0"/>
-      <line num="113" type="method" name="deactivationAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="112" type="method" name="deactivationAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="114" type="stmt" count="0"/>
       <line num="115" type="stmt" count="0"/>
-      <line num="116" type="stmt" count="0"/>
-      <line num="128" type="method" name="deactivationAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="127" type="method" name="deactivationAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="129" type="stmt" count="0"/>
       <line num="130" type="stmt" count="0"/>
       <line num="131" type="stmt" count="0"/>
       <line num="132" type="stmt" count="0"/>
-      <line num="133" type="stmt" count="0"/>
-      <line num="145" type="method" name="prolongationAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="147" type="stmt" count="0"/>
-      <line num="158" type="method" name="prolongationAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="160" type="stmt" count="0"/>
-      <line num="172" type="method" name="prolongationAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="144" type="method" name="prolongationAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="146" type="stmt" count="0"/>
+      <line num="157" type="method" name="prolongationAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="159" type="stmt" count="0"/>
+      <line num="171" type="method" name="prolongationAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="173" type="stmt" count="0"/>
       <line num="174" type="stmt" count="0"/>
       <line num="175" type="stmt" count="0"/>
-      <line num="176" type="stmt" count="0"/>
-      <line num="187" type="method" name="getAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="186" type="method" name="getAccessTokenByUser" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="188" type="stmt" count="0"/>
       <line num="189" type="stmt" count="0"/>
       <line num="190" type="stmt" count="0"/>
-      <line num="191" type="stmt" count="0"/>
-      <line num="201" type="method" name="getAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="203" type="stmt" count="0"/>
-      <line num="213" type="method" name="getAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="215" type="stmt" count="0"/>
-      <line num="225" type="method" name="setLastUseAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="200" type="method" name="getAccessTokenById" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="202" type="stmt" count="0"/>
+      <line num="212" type="method" name="getAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="214" type="stmt" count="0"/>
+      <line num="224" type="method" name="setLastUseAccessToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="226" type="stmt" count="0"/>
       <line num="227" type="stmt" count="0"/>
-      <line num="228" type="stmt" count="0"/>
-      <metrics loc="231" ncloc="117" classes="1" methods="15" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="46" coveredelements="0"/>
+      <metrics loc="230" ncloc="116" classes="1" methods="15" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="46" coveredelements="0"/>
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/Repositories/GlobalTokenRepository.php">
       <class name="Garbuzivan\Laraveltokens\Repositories\GlobalTokenRepository" namespace="global">
@@ -675,7 +665,7 @@
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/Token.php">
       <class name="Garbuzivan\Laraveltokens\Token" namespace="global">
-        <metrics complexity="11" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="0" elements="35" coveredelements="0"/>
+        <metrics complexity="13" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="37" coveredelements="0"/>
       </class>
       <line num="75" type="method" name="load" visibility="public" complexity="4" crap="20" count="0"/>
       <line num="77" type="stmt" count="0"/>
@@ -700,19 +690,21 @@
       <line num="123" type="stmt" count="0"/>
       <line num="124" type="stmt" count="0"/>
       <line num="125" type="stmt" count="0"/>
-      <line num="133" type="method" name="loadDefault" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="133" type="method" name="loadDefault" visibility="public" complexity="3" crap="12" count="0"/>
       <line num="135" type="stmt" count="0"/>
       <line num="136" type="stmt" count="0"/>
-      <line num="137" type="stmt" count="0"/>
       <line num="138" type="stmt" count="0"/>
       <line num="139" type="stmt" count="0"/>
       <line num="140" type="stmt" count="0"/>
       <line num="141" type="stmt" count="0"/>
-      <line num="148" type="method" name="isToken" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="150" type="stmt" count="0"/>
-      <line num="158" type="method" name="isValid" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="160" type="stmt" count="0"/>
-      <metrics loc="162" ncloc="92" classes="1" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="0" elements="35" coveredelements="0"/>
+      <line num="142" type="stmt" count="0"/>
+      <line num="143" type="stmt" count="0"/>
+      <line num="144" type="stmt" count="0"/>
+      <line num="151" type="method" name="isToken" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="153" type="stmt" count="0"/>
+      <line num="161" type="method" name="isValid" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="163" type="stmt" count="0"/>
+      <metrics loc="165" ncloc="95" classes="1" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="37" coveredelements="0"/>
     </file>
     <file name="/application/packages/garbuzivan/laraveltokens/src/TokenManager.php">
       <class name="Garbuzivan\Laraveltokens\TokenManager" namespace="global">
@@ -852,6 +844,6 @@
       <line num="51" type="stmt" count="0"/>
       <metrics loc="53" ncloc="34" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="8" coveredelements="0"/>
     </file>
-    <metrics files="38" loc="3523" ncloc="2020" classes="32" methods="133" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="499" coveredstatements="0" elements="632" coveredelements="0"/>
+    <metrics files="38" loc="3511" ncloc="1997" classes="32" methods="133" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="491" coveredstatements="0" elements="624" coveredelements="0"/>
   </project>
 </coverage>
