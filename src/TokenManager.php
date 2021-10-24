@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens;
 
 use Garbuzivan\Laraveltokens\Exceptions\TokenIsNotValidException;
+use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
 use Garbuzivan\Laraveltokens\Interfaces\GlobalTokenRepositoryInterface;
-use Garbuzivan\Laraveltokens\Interfaces\ModelToken;
-use Garbuzivan\Laraveltokens\Models\AccessToken;
 use Garbuzivan\Laraveltokens\Traits\ManagerAccessTokenTrait;
 use Garbuzivan\Laraveltokens\Traits\ManagerGlobalTokenTrait;
-use Illuminate\Support\Str;
 
 class TokenManager
 {
@@ -38,20 +36,28 @@ class TokenManager
     protected GlobalTokenRepositoryInterface $globalTokenRepository;
 
     /**
+     * @var Coder
+     */
+    protected Coder $coder;
+
+    /**
      * Configuration constructor.
      *
      * @param Config                         $config
      * @param AccessTokenRepositoryInterface $TokenRepository
      * @param GlobalTokenRepositoryInterface $globalTokenRepository
+     * @param Coder                          $coder
      */
     public function __construct(
         Config                         $config,
         AccessTokenRepositoryInterface $TokenRepository,
-        GlobalTokenRepositoryInterface $globalTokenRepository
+        GlobalTokenRepositoryInterface $globalTokenRepository,
+        Coder                          $coder
     ) {
         $this->config = $config;
         $this->accessTokenRepository = $TokenRepository;
         $this->globalTokenRepository = $globalTokenRepository;
+        $this->coder = $coder;
         $this->token = app(Token::class);
     }
 
@@ -65,6 +71,7 @@ class TokenManager
      */
     public function auth(string $token): Token
     {
+        $this->token->loadTokenHeader($this->coder->decode($token, $this->config->getSalt()));
         $token = $this->config->isEncryption() ? $this->getHash($token) : $token;
         $tokenDb = $this->accessTokenRepository->getAccessToken($token);
         $this->token->load($tokenDb);
@@ -122,11 +129,15 @@ class TokenManager
     /**
      * Генерация случайного токена на основе даты и случайной строки
      *
+     * @param array $payload
+     * @param array $head
+     *
      * @return string
+     * @throws \Exception
      */
-    public function generateToken(): string
+    public function generateToken(array $payload = [], array $head = []): string
     {
-        return sha1(time() . Str::random());
+        return $this->coder->encode($payload, $this->config->getSalt(), $head);
     }
 
     /**
@@ -182,5 +193,22 @@ class TokenManager
     public function getToken(): Token
     {
         return $this->token;
+    }
+
+    /**
+     * Проверка полиморфной связи
+     *
+     * @param int    $user_id
+     * @param string $user_type
+     *
+     * @return void
+     * @throws UserNotExistsException
+     */
+    public function isMorph(int $user_id, string $user_type): void
+    {
+        $user = app($user_type)->/** @scrutinizer ignore-call */ where('id', $user_id)->first();
+        if (is_null($user)) {
+            throw new UserNotExistsException;
+        }
     }
 }

@@ -88,7 +88,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return new TokenManager(
                 app(Config::class),
                 app(AccessTokenRepositoryInterface::class),
-                app(GlobalTokenRepositoryInterface::class)
+                app(GlobalTokenRepositoryInterface::class),
+                app(Coder::class)
             );
         });
     }

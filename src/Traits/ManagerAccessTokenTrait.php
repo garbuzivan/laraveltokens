@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Garbuzivan\Laraveltokens\Traits;
 
 use DateTime;
+use Exception;
 use Garbuzivan\Laraveltokens\Config;
 use Garbuzivan\Laraveltokens\Exceptions\UserNotExistsException;
 use Garbuzivan\Laraveltokens\Interfaces\AccessTokenRepositoryInterface;
@@ -33,6 +34,7 @@ trait ManagerAccessTokenTrait
      *
      * @return AccessToken
      * @throws UserNotExistsException
+     * @throws Exception
      */
     public function createAccessToken(
         string    $title,
@@ -41,10 +43,16 @@ trait ManagerAccessTokenTrait
         ?string   $user_type = null,
         ?string   $token = null
     ): AccessToken {
+        $user_type = !is_null($user_type) ? $user_type : $this->getDefaultMorph();
+        $array = explode('\\', $user_type);
+        $type = end($array);
         $token = is_null($token) || mb_strlen($token) < 32 ?
-            $this->/** @scrutinizer ignore-call */ generateToken() : $token;
+            $this->/** @scrutinizer ignore-call */ generateToken(
+                ['uid' => $user_id, 'type' => $type],
+                ['exp' => $expiration]
+            ) : $token;
         $user_type = is_null($user_type) ? $this->/** @scrutinizer ignore-call */ getDefaultMorph() : $user_type;
-        $this->accessTokenRepository->isMorph($user_id, $user_type);
+        $this->isMorph($user_id, $user_type);
         $tokenDB = $this->accessTokenRepository->createAccessToken(
             $title,
             $expiration,

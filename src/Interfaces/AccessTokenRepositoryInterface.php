@@ -160,15 +160,4 @@ interface AccessTokenRepositoryInterface
      * @return bool
      */
     public function setLastUseAccessToken(int $token_id): bool;
-
-    /**
-     * Проверка полиморфной связи
-     *
-     * @param int    $user_id
-     * @param string $user_type
-     *
-     * @return void
-     * @throws UserNotExistsException
-     */
-    public function isMorph(int $user_id, string $user_type): void;
 }

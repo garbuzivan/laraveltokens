@@ -228,21 +228,4 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
             'last_use' => Carbon::now()->subMinutes(),
         ]);
     }
-
-    /**
-     * Проверка полиморфной связи
-     *
-     * @param int    $user_id
-     * @param string $user_type
-     *
-     * @return void
-     * @throws UserNotExistsException
-     */
-    public function isMorph(int $user_id, string $user_type): void
-    {
-        $user = app($user_type)->/** @scrutinizer ignore-call */ where('id', $user_id)->first();
-        if (is_null($user)) {
-            throw new UserNotExistsException;
-        }
-    }
 }

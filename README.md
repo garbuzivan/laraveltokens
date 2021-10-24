@@ -42,6 +42,16 @@ Package - manager for working with personal and global tokens in Laravel + API M
 
 <pre>php artisan vendor:publish --force --provider="Garbuzivan\Laraveltokens\ServiceProvider" --tag="config"</pre>
 
+## .env
+
+Необходимо установить свой код кодировки токенов. 
+Используется для подписи сертификата и создании сигнатуры. 
+Можно использовать для проверки токена на стороне клиента. 
+При указании пути к файлу, автоматически ключом будет использоваться содержимое файла.
+
+```LARAVEL_TOKENS_SALT=Fo3SMqqUbrxKJMQW0sVOB4Q```
+
+
 ## Подключение Middleware
 
 Добавить в файл app/Http/Kernel.php в $middlewareGroups блок "api" новый Middleware

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Garbuzivan\Laraveltokens;
 
-use Carbon\Carbon;
 use DateTime;
 use Garbuzivan\Laraveltokens\Interfaces\ModelToken;
 use Garbuzivan\Laraveltokens\Models\AccessToken;
@@ -64,6 +63,11 @@ class Token
     public ?Authenticatable $user = null;
 
     /**
+     * @var array
+     */
+    public array $header = [];
+
+    /**
      * @param ModelToken|null $modelToken
      *
      * @return $this
@@ -81,6 +85,19 @@ class Token
     }
 
     /**
+     * Информация полученная из токена
+     *
+     * @param array $header
+     *
+     * @return $this
+     */
+    public function loadTokenHeader(array $header): self
+    {
+        $this->header = $header;
+        return $this;
+    }
+
+    /**
      * @param AccessToken $token
      *
      * @return $this
@@ -88,11 +105,7 @@ class Token
     public function loadAccessToken(AccessToken $token): self
     {
         $this->type = AccessToken::class;
-        $this->id = $token->id;
-        $this->token = $token->token;
-        $this->title = $token->title;
-        $this->expiration = $token->expiration;
-        $this->last_use = $token->last_use;
+        $this->loadDefault($token);
         $this->user_id = $token->user_id;
         $this->user_type = $token->user_type;
         $this->user = $token->user;
@@ -108,13 +121,23 @@ class Token
     public function loadGlobalToken(GlobalToken $token): self
     {
         $this->type = GlobalToken::class;
+        $this->loadDefault($token);
+        return $this;
+    }
+
+    /**
+     * @param GlobalToken $token
+     *
+     * @return void
+     */
+    public function loadDefault(ModelToken $token): void
+    {
         $this->id = $token->id;
         $this->token = $token->token;
         $this->title = $token->title;
         $this->expiration = $token->expiration;
         $this->last_use = $token->last_use;
         $this->is_valid = $token->isValid();
-        return $this;
     }
 
     /**
