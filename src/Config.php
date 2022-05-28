@@ -92,7 +92,7 @@ class Config
         $this->autoClear = (bool)config($this->configName . '.auto_clear', $this->autoClear);
         $this->autoClearPause = intval(config($this->configName . '.auto_clear_pause', $this->autoClearPause));
         $this->repository_global = (string)config($this->configName . '.repository_global', $this->repository_global);
-        $this->repository_access = (string)config($this->configName . '.repository_global', $this->repository_access);
+        $this->repository_access = (string)config($this->configName . '.repository_access', $this->repository_access);
         $this->lastUse = (bool)config($this->configName . '.last_use', $this->lastUse);
         $this->jwt = (bool)config($this->configName . '.jwt', $this->jwt);
         $this->salt = (string)config($this->configName . '.salt', $this->salt);
