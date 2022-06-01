@@ -16,7 +16,7 @@ class Coder
      */
     public function encode(array $payload, string $key, array $head = []): string
     {
-        $header = ['typ' => 'JWT', 'alg' => 'HS256'];
+        $header = ['typ' => 'JWT', 'alg' => 'HS256', 'unixtime' => time()];
         $header = \array_merge($head, $header);
         $segments = [];
         $segments[] = $this->urlsafeB64Encode($this->jsonEncode($header));
